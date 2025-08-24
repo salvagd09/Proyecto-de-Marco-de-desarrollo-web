@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mensajes de Contacto</title>
+    <link rel="stylesheet" href="../ArchivosCSS/estilo_Admin.css" />
+    <style>
+      .tabla-admin {
+        width: 95%;
+        margin: auto;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      .tabla-admin th,
+      .tabla-admin td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: left;
+        vertical-align: top;
+      }
+      .tabla-admin th {
+        background-color: #f4f4f4;
+      }
+      .btn-volver {
+        display: inline-block;
+        margin: 20px;
+        text-decoration: none;
+        background-color: #444;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="admin-panel">
+      <h1>Mensajes de Contacto</h1>
+      <div id="loading" class="loading">Cargando mensajes...</div>
+      <table class="tabla-admin">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Mensaje</th>
+          </tr>
+        </thead>
+        <tbody id="Tabla">
+          <!-- Los mensajes se cargarán aquí dinámicamente -->
+        </tbody>
+      </table>
+      <a href="Admin.html" class="btn-volver">← Volver al panel</a>
+    </main>
+    <script src="../app/ArchivoJavaScript/verMensajes.js"></script>
+  </body>
+</html>

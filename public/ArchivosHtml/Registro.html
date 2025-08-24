@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="../ArchivosCSS/Estyle_Registro.css"
+      rel="stylesheet"
+    />
+    <title>Regístrate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Kaushan+Script&family=Kay+Pho+Du:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/95f1b4897f.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header>
+      <input type="checkbox" id="menu-toggle" hidden />
+      <label for="menu-toggle" class="menu-btn"
+        ><i class="fa-solid fa-bars"></i
+      ></label>
+      <a class="Titulo" href="Principal.html">Estilos<span>PE</span></a>
+      <div class="cuadro-busqueda">
+        <input placeholder="Realiza tu búsqueda aquí" class="buscador" />
+      </div>
+      <h2><a href="Mision_vision.html">Misión y Visión</a></h2>
+      <h2><a href="Nosotros.html">Nosotros</a></h2>
+      <h2><a href="Iniciar_Sesion.html">Iniciar sesión</a></h2>
+      <h2><a href="Registro.html">Registrate</a></h2>
+      <h2><a href="contactanos.html">Contáctanos</a></h2>
+      <a href="Compra.html">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </a>
+      <nav>
+        <!-- Este es el menú que sale del costado -->
+        <ul class="lista-desplegable">
+          <li>
+            <div class="ropa">
+              <i class="fa-solid fa-shirt"></i>
+              <h3><a href="Ventana_ProductoRopa.html">Ropa</a></h3>
+            </div>
+          </li>
+          <li>
+            <div>
+              <i class="fa-solid fa-glasses"></i>
+              <h3 href="Ventana_ProductoAccesorios.html"><a>Accesorios</a></h3>
+            </div>
+          </li>
+          <li>
+            <div>
+              <i class="fa-solid fa-shoe-prints"></i>
+              <h3><a href="Ventana_ProdcutoCalzado.html">Calzado</a></h3>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+ <main>
+  <section id="registro" class="pestana activa">
+    <form class="form-grid" id="loginForm" >
+      <div class="campo">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="username" required />
+      </div>
+      <div class="campo">
+        <label for="apellidoP">Apellido Paterno:</label>
+        <input type="text" id="apellidoP" name="apellidoP" required />
+      </div>
+      <div class="campo">
+        <label for="apellidoM">Apellido Materno:</label>
+        <input type="text" id="apellidoM" name="apellidoM" required />
+      </div>
+      <div class="campo">
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="correo" required />
+      </div>
+      <div class="campo">
+        <label for="contrasena">Contraseña:</label>
+        <input type="password" id="contrasena" name="password" required />
+      </div>
+      <div class="campo">
+        <label for="confirmar">Confirmar contraseña:</label>
+        <input type="password" id="confirmar" required />
+      </div>
+      <div class="campo">
+        <label for="tipoDocumento">Tipo de documento:</label>
+        <select id="tipoDocumento" name="tipoDocumento" required>
+          <option value="">Selecciona</option>
+          <option value="dni">DNI</option>
+          <option value="ce">Cedula</option>
+          <option value="pp">Pasaporte</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="numeroDocumento">N° de documento:</label>
+        <input type="text" id="numeroDocumento" name="numeroDocumento" required />
+      </div>
+      <div class="campo">
+        <label for="nacimiento">Fecha de nacimiento:</label>
+        <input type="date" id="nacimiento" name="nacimiento" required />
+      </div>
+      <div class="campo">
+        <label for="celular">Número de celular:</label>
+        <input type="tel" id="celular" name="celular" pattern="[0-9]{9}" required />
+      </div>
+      <div class="campo">
+        <label for="departamento">Departamento:</label>
+        <select id="departamento" name="departamento" required>
+          <option value="">Selecciona</option>
+          <option value="lima">Lima</option>
+          <option value="Cuzco">Cuzco</option>
+          <option value="Cajamarca">Cajamarca</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="genero">Género:</label>
+        <div class="genero-opciones">
+          <label><input type="radio" id="generoH" name="genero" value="hombre" required />Hombre</label>
+          <label><input type="radio" id="generoM" name="genero" value="mujer" required />Mujer</label>
+        </div>
+      </div>
+      <div class="campo campo-full">
+        <button type="submit" >Registrarse</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+    <footer class="footer">
+      <ul class="social-icon">
+        <li class="icon-elem">
+          <a href="" class="icon">
+            <ion-icon name="logo-youtube"></ion-icon>
+          </a>
+        </li>
+        <li class="icon-elem">
+          <a href="" class="icon">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
+        </li>
+        <li class="icon-elem">
+          <a href="" class="icon">
+            <ion-icon name="logo-whatsapp"></ion-icon>
+          </a>
+        </li>
+        <li class="icon-elem">
+          <a href="" class="icon">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </a>
+        </li>
+        <li class="icon-elem">
+          <a href="" class="icon">
+            <ion-icon name="mail-outline"></ion-icon>
+          </a>
+        </li>
+      </ul>
+      <ul class="menu">
+        <li class="menu-elem">
+          <a href="" class="menu-icon"> Correo </a>
+        </li>
+        <li class="menu-elem">
+          <a href="" class="menu-icon"> Equipo </a>
+        </li>
+
+        <li class="menu-elem">
+          <a href="" class="menu-icon"> Video </a>
+        </li>
+      </ul>
+      <p class="text">2025@Año | Todos los derechos reservados</p>
+    </footer>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+        <script src="../app/ArchivoJavaScript/validacion_Registro.js"></script>
+  </body>
+  </body>
+</html>
