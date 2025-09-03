@@ -5,7 +5,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
 
     // comprabacion del administrador
     if(email === "admin@estilos.com" && password === "admin"){
-      window.location.href = "/index.html";
+      window.location.href = "../../index.html";
     } else {
       alert("Credenciales incorrectas, intenta de nuevo.");
     }
