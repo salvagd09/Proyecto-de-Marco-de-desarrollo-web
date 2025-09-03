@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión EstilosPE - Roles</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/tarjetas.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/roles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="layout">
+        <input type="checkbox" id="nav-toggle" class="d-none">
+        <header class="d-md-none position-sticky top-0 z-3 bg-dark text-white">
+            <label for="nav-toggle" class="btn btn-link text-white m-2 p-0">
+                <i class="bi bi-list" style="font-size: 1.75rem;"></i>
+            </label>
+        </header>
+        <aside id="sidebar" class="d-flex flex-column p-3 bg-dark text-white">
+            <div class="d-flex align-items-center justify-content-center">
+                <a href="../index.html" class="d-flex align-items-center text-decoration-none text-white">
+                    <img src="../img/LogoEmpresa.png" alt="Logo EstilosPE" width="50" class="me-2">
+                    <h3 class="m-0">EstilosPE</h3>
+                </a>
+            </div>
+            <hr>
+            <div class="text-center mb-0">
+                <img src="../img/usuario.png" alt="Usuario" class="rounded-circle mb-2 usuario">
+                <h6 class="m-0">Salvador Goicochea</h6>
+                <h6 class="text-secondary">Administrador</h6>
+            </div>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-0">
+                <li><a href="../index.html" class="nav-link"><i class="bi bi-speedometer2 me-2"></i>Panel Principal</a></li>
+                <li><a href="compras.html" class="nav-link"><i class="bi bi-bag-check me-2"></i>Órdenes de Compra</a></li>
+                <li><a href="ventas.html" class="nav-link"><i class="bi bi-cart-check me-2"></i>Ventas</a></li>
+                <li><a href="gastos.html" class="nav-link"><i class="bi bi-cash-coin me-2"></i>Gastos Generales</a></li>
+                <li><a href="insumos.html" class="nav-link"><i class="bi bi-box-seam me-2"></i>Insumos</a></li>
+                <li><a href="productos.html" class="nav-link"><i class="bi bi-tags me-2"></i>Productos</a></li>
+                <li><a href="roles.html" class="nav-link"><i class="bi bi-tags me-2"></i>Roles</a></li>
+            </ul>
+        </aside>
+
+        <div class="main">
+            <header class="app-header d-flex align-items-center shadow">
+                <div class="header-inner d-flex align-items-center gap-2 ms-auto">
+                    <div class="action">
+                        <button class="btn-icon" aria-label="Notificaciones">
+                            <i class="bi bi-bell"></i>
+                            <span class="badge-dot"></span>
+                        </button>
+                    </div>
+                    <div class="vr mx-auto"></div>
+                    <div class="action d-none d-sm-flex">
+                        <div class="user-email text-truncate" title="salvadorG@empresa.com">salvadorG@empresa.com</div>
+                    </div>
+                    <div class="action">
+                        <img src="../img/usuario.png" alt="Usuario" class="rounded-circle usuario">
+                    </div>
+                    <div class="vr mx-auto"></div>
+                    <div class="action">
+                        <form action="/html/login.html" method="get">
+                            <button type="submit" class="btn-icon" aria-label="Cerrar sesión">
+                                <i class="bi bi-box-arrow-right"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </header>
+
+            <main class="app-content">
+                <div id="page-content-wrapper" class="p-4 flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="h2 mb-0">Rol <span class="text-secondary fw-light">Listado</span></h1>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <button type="button" class="btn btn-primary" id="btnAgregarRol" data-bs-toggle="modal" data-bs-target="#rolModal">
+                            <i class="bi bi-plus-circle me-2"></i>Agregar Rol
+                        </button>
+                        <div class="d-flex align-items-center gap-2 ms-auto">
+                            <span class="text-secondary">Mostrar</span>
+                            <select class="form-select form-select-sm" id="selectRegistros" style="width: auto;">
+                                <option value="10" selected>10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            <span class="text-secondary">registros</span>
+                            <button type="button" class="btn btn-secondary btn-sm" id="btnExportar">Exportar</button>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover mb-0" id="tablaRoles">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Descripcion</th>
+                                            <th scope="col">Comision</th>
+                                            <th scope="col">Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="text-secondary small" id="infoRegistros"></span>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal fade" id="rolModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Agregar Nuevo Rol</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formRol">
+                        <input type="hidden" id="rolId">
+                        <div class="mb-3">
+                            <label for="nombreRol" class="form-label">Nombre del Rol</label>
+                            <input type="text" class="form-control" id="nombreRol" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcionRol" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="descripcionRol" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="comisionRol" class="form-label">Comisión (%)</label>
+                            <input type="number" class="form-control" id="comisionRol" step="0.01" min="0">
+                        </div>
+                        <button type="submit" class="btn btn-success">Guardar Rol</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/roles.js"></script>
+</body>
+
+</html>
