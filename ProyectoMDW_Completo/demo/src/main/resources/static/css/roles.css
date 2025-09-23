@@ -1,0 +1,34 @@
+/* Importa los estilos base de tu proyecto, si es necesario */
+@import url('sidebar.css');
+@import url('tarjetas.css');
+@import url('gastos.css');
+
+/* Estilos específicos para la página de Roles */
+
+/* Asegura que el contenedor de la tabla no tenga padding extra */
+.card-body.p-0 {
+    padding: 0 !important;
+}
+
+/* Elimina el margen inferior de la tabla dentro del card-body */
+.card-body.p-0 .table {
+    margin-bottom: 0;
+}
+
+/* Alinea verticalmente el contenido de las celdas de la tabla */
+.table th, .table td {
+    vertical-align: middle;
+}
+
+/* Estilo para el encabezado de la tabla */
+.table thead th {
+    background-color: #f8f9fa; /* Un gris claro para el fondo */
+    border-bottom: 2px solid #dee2e6; /* Un borde inferior para separar del cuerpo */
+    font-weight: 500; /* Hace la letra un poco más gruesa */
+    color: #333; /* Un color de texto oscuro */
+}
+
+/* Estilo para la fila al pasar el mouse por encima */
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1; /* Un gris más claro para el hover */
+}
