@@ -1,200 +1,143 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Panel Principal - Vendedor</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Dependencias CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <title>Panel Principal - Vendedor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Estilos Propios -->
-    <link rel="stylesheet" href="../css/sidebar.css" />
-    <link rel="stylesheet" href="../css/tarjetas.css" />
-  </head>
-  <body>
-    <div class="layout">
-      <!-- Sidebar para Vendedor -->
-      <aside id="sidebar" class="d-flex flex-column p-3 bg-dark text-white">
-        <div class="d-flex align-items-center justify-content-center mb-3">
-          <a
-            href="Ventana_Vendedor.html"
-            class="d-flex align-items-center text-decoration-none text-white"
-          >
-            <img
-              src="../img/LogoEmpresa.png"
-              alt="Logo EstilosPE"
-              width="50"
-              class="me-2"
-            />
-            <h3 class="m-0">EstilosPE</h3>
-          </a>
-        </div>
-        <hr />
-        <div class="text-center mb-3">
-          <img
-            src="../img/usuario.png"
-            alt="Usuario"
-            class="rounded-circle mb-2"
-            style="width: 60px"
-          />
-          <h6 id="user-name" class="m-0 fw-bold">Cargando...</h6>
-          <small id="user-role" class="text-secondary"></small>
-        </div>
-        <hr />
-        <ul class="nav nav-pills flex-column flex-grow-1">
-          <li class="nav-item">
-            <a href="Ventana_Vendedor.html" class="nav-link active"
-              ><i class="bi bi-speedometer2 me-2"></i>Panel Principal</a
-            >
-          </li>
-          <li class="nav-item">
-            <a href="ventas_Vendedor.html" class="nav-link text-white"
-              ><i class="bi bi-cart-check me-2"></i>Ventas</a
-            >
-          </li>
-          <li class="nav-item">
-            <a href="Ventas_Insumos.html" class="nav-link text-white"
-              ><i class="bi bi-box-seam me-2"></i>Insumos</a
-            >
-          </li>
-          <li class="nav-item">
-            <a href="Ventas_Productos.html" class="nav-link text-white"
-              ><i class="bi bi-tags me-2"></i>Productos</a
-            >
-          </li>
-        </ul>
-      </aside>
+  <!-- Dependencias CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
 
-      <!-- Contenido Principal -->
-      <div class="main-content">
-        <header
-          class="app-header d-flex align-items-center shadow-sm p-3 bg-white"
-        >
-          <h4 class="mb-0">Panel Principal (Vendedor)</h4>
-          <div class="ms-auto d-flex align-items-center gap-3">
-            <div class="d-none d-sm-flex flex-column align-items-end">
-              <span
-                id="user-email"
-                class="fw-bold user-email"
-                title="Cargando email..."
-                >Cargando...</span
-              >
-            </div>
-            <img
-              src="../img/usuario.png"
-              alt="Avatar"
-              class="rounded-circle"
-              style="width: 40px"
-            />
-            <button
-              type="button"
-              id="logout-button"
-              class="btn btn-outline-danger"
-              aria-label="Cerrar sesión"
-            >
-              <i class="bi bi-box-arrow-right"></i>
-            </button>
-          </div>
-        </header>
+  <!-- Estilos Propios -->
+  <link rel="stylesheet" href="../css/tarjetas.css" />
+  <link rel="stylesheet" href="../css/sidebar.css" />
+</head>
 
-        <main class="app-content p-4">
-          <div class="container-fluid">
-            <div class="row g-4">
-              <div class="col-12">
-                <div class="bg-light p-4 rounded-3">
-                  <h2 class="fw-bold">
-                    Bienvenido de nuevo,
-                    <span id="welcome-user-name">Vendedor</span>.
-                  </h2>
-                  <p class="text-muted">
-                    Listo para gestionar tus ventas y productos.
-                  </p>
-                </div>
-              </div>
-
-              <!-- Tarjetas de Acceso Rápido -->
-              <div class="col-md-4">
-                <div class="card shadow-sm text-center h-100">
-                  <div
-                    class="card-body d-flex flex-column justify-content-center"
-                  >
-                    <i class="bi bi-cart-plus-fill fs-1 text-primary"></i>
-                    <h5 class="card-title mt-3">Registrar Ventas</h5>
-                    <p class="card-text">
-                      Crea y administra nuevas órdenes de venta.
-                    </p>
-                    <a
-                      href="ventas_Vendedor.html"
-                      class="btn btn-primary mt-auto"
-                      >Ir a Ventas</a
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="card shadow-sm text-center h-100">
-                  <div
-                    class="card-body d-flex flex-column justify-content-center"
-                  >
-                    <i class="bi bi-tags-fill fs-1 text-success"></i>
-                    <h5 class="card-title mt-3">Consultar Productos</h5>
-                    <p class="card-text">
-                      Revisa el stock y los precios de los productos.
-                    </p>
-                    <a
-                      href="Ventas_Productos.html"
-                      class="btn btn-success mt-auto"
-                      >Ver Productos</a
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="card shadow-sm text-center h-100">
-                  <div
-                    class="card-body d-flex flex-column justify-content-center"
-                  >
-                    <i class="bi bi-box-seam-fill fs-1 text-info"></i>
-                    <h5 class="card-title mt-3">Consultar Insumos</h5>
-                    <p class="card-text">
-                      Consulta la disponibilidad de insumos.
-                    </p>
-                    <a href="Ventas_Insumos.html" class="btn btn-info mt-auto"
-                      >Ver Insumos</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </main>
+<body>
+  <div class="layout">
+    <!-- Sidebar para Vendedor -->
+    <aside id="sidebar" class="d-flex flex-column p-3 bg-dark text-white">
+      <div class="d-flex align-items-center justify-content-center mb-3">
+        <a href="Ventana_Vendedor.html" class="d-flex align-items-center text-decoration-none text-white">
+          <img src="../img/LogoEmpresa.png" alt="Logo EstilosPE" width="50" class="me-2">
+          <h3 class="m-0">EstilosPE</h3>
+        </a>
       </div>
-    </div>
+      <hr />
+      <div class="text-center mb-3">
+        <img src="../img/usuario.png" alt="Usuario" class="rounded-circle mb-2 usuario">
+        <h6 id="user-name" class="m-0 fw-bold">Cargando...</h6>
+        <small id="user-role" class="text-secondary"></small>
+      </div>
+      <hr />
+      <ul class="nav nav-pills flex-column flex-grow-1">
+        <li class="nav-item">
+          <a href="Ventana_Vendedor.html" class="nav-link active"><i class="bi bi-speedometer2 me-2"></i>Panel
+            Principal</a>
+        </li>
+        <li class="nav-item">
+          <a href="ventas_Vendedor.html" class="nav-link text-white"><i class="bi bi-cart-check me-2"></i>Ventas</a>
+        </li>
+        <li class="nav-item">
+          <a href="Ventas_Insumos.html" class="nav-link text-white"><i class="bi bi-box-seam me-2"></i>Insumos</a>
+        </li>
+        <li class="nav-item">
+          <a href="Ventas_Productos.html" class="nav-link text-white"><i class="bi bi-tags me-2"></i>Productos</a>
+        </li>
+      </ul>
+    </aside>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/auth.js"></script>
-    <script src="../js/logout.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const userName = sessionStorage.getItem("userName");
-        if (userName) {
-          const welcomeElement = document.getElementById("welcome-user-name");
-          if (welcomeElement) welcomeElement.textContent = userName;
-        }
-      });
-    </script>
-  </body>
+    <!-- Contenido Principal -->
+    <div class="main-content">
+      <header class="app-header d-flex align-items-center shadow-sm p-3 bg-white">
+        <h4 class="mb-0">Panel Principal (Vendedor)</h4>
+        <div class="ms-auto d-flex align-items-center gap-3">
+          <div class="d-none d-sm-flex flex-column align-items-end">
+            <span id="user-email" class="fw-bold user-email" title="Cargando email...">Cargando...</span>
+          </div>
+          <div class="action">
+            <img src="../img/usuario.png" alt="Usuario" class="rounded-circle usuario" />
+          </div>
+          <button type="button" id="logout-button" class="btn btn-outline-danger" aria-label="Cerrar sesión">
+            <i class="bi bi-box-arrow-right"></i>
+          </button>
+        </div>
+      </header>
+
+      <main class="app-content p-4">
+        <div class="container-fluid">
+          <div class="row g-4">
+            <div class="col-12">
+              <div class="bg-light p-4 rounded-3">
+                <h2 class="fw-bold">
+                  Bienvenido de nuevo,
+                  <span id="welcome-user-name">Vendedor</span>.
+                </h2>
+                <p class="text-muted">
+                  Listo para gestionar tus ventas y productos.
+                </p>
+              </div>
+            </div>
+
+            <!-- Tarjetas de Acceso Rápido -->
+            <div class="col-md-4">
+              <div class="card shadow-sm text-center h-100">
+                <div class="card-body d-flex flex-column justify-content-center">
+                  <i class="bi bi-cart-plus-fill fs-1 text-primary"></i>
+                  <h5 class="card-title mt-3">Registrar Ventas</h5>
+                  <p class="card-text">
+                    Crea y administra nuevas órdenes de venta.
+                  </p>
+                  <a href="ventas_Vendedor.html" class="btn btn-primary mt-auto">Ir a Ventas</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card shadow-sm text-center h-100">
+                <div class="card-body d-flex flex-column justify-content-center">
+                  <i class="bi bi-tags-fill fs-1 text-success"></i>
+                  <h5 class="card-title mt-3">Consultar Productos</h5>
+                  <p class="card-text">
+                    Revisa el stock y los precios de los productos.
+                  </p>
+                  <a href="Ventas_Productos.html" class="btn btn-success mt-auto">Ver Productos</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card shadow-sm text-center h-100">
+                <div class="card-body d-flex flex-column justify-content-center">
+                  <i class="bi bi-box-seam-fill fs-1 text-info"></i>
+                  <h5 class="card-title mt-3">Consultar Insumos</h5>
+                  <p class="card-text">
+                    Consulta la disponibilidad de insumos.
+                  </p>
+                  <a href="Ventas_Insumos.html" class="btn btn-info mt-auto">Ver Insumos</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/logout.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const userName = sessionStorage.getItem("userName");
+      if (userName) {
+        const welcomeElement = document.getElementById("welcome-user-name");
+        if (welcomeElement) welcomeElement.textContent = userName;
+      }
+    });
+  </script>
+</body>
+
 </html>

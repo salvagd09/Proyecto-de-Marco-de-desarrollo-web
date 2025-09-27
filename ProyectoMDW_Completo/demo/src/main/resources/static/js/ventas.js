@@ -1,4 +1,4 @@
-**
+/*
  * ventas.js - Lógica para el Módulo de Ventas
  * Versión 3.0 - Conectado al backend Spring Boot.
  */

@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
             canEdit: true,
             canDelete: true,
             pageExceptions: {
-                'Ventas_Insumos.html': { canCreate: false, canEdit: false, canDelete: false },
-                'Ventas_Productos.html': { canCreate: false, canEdit: false, canDelete: false }
+                'Ventas_Insumos.html': { canCreate: true, canEdit: true, canDelete: false },
+                'Ventas_Productos.html': { canCreate: true, canEdit: true, canDelete: false }
             }
         },
         'Contador': {
