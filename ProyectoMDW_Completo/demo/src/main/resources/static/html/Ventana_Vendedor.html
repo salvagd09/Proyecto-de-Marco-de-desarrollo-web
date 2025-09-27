@@ -1,173 +1,200 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Panel Principal - Vendedor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-  <meta charset="UTF-8">
-  <title>Gestión EstilosPE</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Dependencias CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!--Fuente Google-->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <!--Estilo CSS-->
-  <link rel="stylesheet" href="../css/tarjetas.css">
-  <link rel="stylesheet" href="../css/sidebar.css">
-  <!-- Iconos de Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-</head>
+    <!-- Estilos Propios -->
+    <link rel="stylesheet" href="../css/sidebar.css" />
+    <link rel="stylesheet" href="../css/tarjetas.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <!-- Sidebar para Vendedor -->
+      <aside id="sidebar" class="d-flex flex-column p-3 bg-dark text-white">
+        <div class="d-flex align-items-center justify-content-center mb-3">
+          <a
+            href="Ventana_Vendedor.html"
+            class="d-flex align-items-center text-decoration-none text-white"
+          >
+            <img
+              src="../img/LogoEmpresa.png"
+              alt="Logo EstilosPE"
+              width="50"
+              class="me-2"
+            />
+            <h3 class="m-0">EstilosPE</h3>
+          </a>
+        </div>
+        <hr />
+        <div class="text-center mb-3">
+          <img
+            src="../img/usuario.png"
+            alt="Usuario"
+            class="rounded-circle mb-2"
+            style="width: 60px"
+          />
+          <h6 id="user-name" class="m-0 fw-bold">Cargando...</h6>
+          <small id="user-role" class="text-secondary"></small>
+        </div>
+        <hr />
+        <ul class="nav nav-pills flex-column flex-grow-1">
+          <li class="nav-item">
+            <a href="Ventana_Vendedor.html" class="nav-link active"
+              ><i class="bi bi-speedometer2 me-2"></i>Panel Principal</a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="ventas_Vendedor.html" class="nav-link text-white"
+              ><i class="bi bi-cart-check me-2"></i>Ventas</a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="Ventas_Insumos.html" class="nav-link text-white"
+              ><i class="bi bi-box-seam me-2"></i>Insumos</a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="Ventas_Productos.html" class="nav-link text-white"
+              ><i class="bi bi-tags me-2"></i>Productos</a
+            >
+          </li>
+        </ul>
+      </aside>
 
-<body>
-  <div class="layout">
-    <!-- Sidebar a la izquierda -->
-    <!-- Toggle (solo mobile) -->
-     <label for="nav-toggle" class="d-none">Botón</label>
-    <input type="checkbox" id="nav-toggle" class="d-none" />
-    <label for="nav-toggle" id="overlay"></label>
-    <!-- Barra superior en mobile con botón hamburguesa -->
-    <header class="d-md-none position-sticky top-0 z-3 bg-dark text-white">
-      <label for="nav-toggle" class="btn btn-link text-white m-2 p-0">
-        <i class="bi bi-list" style="font-size: 1.75rem;"></i>
-      </label>
-    </header>
-
-    <!-- Tu sidebar (SIN JS) -->
-    <aside id="sidebar" class="d-flex flex-column p-3 bg-dark text-white">
-      <div class="d-flex align-items-center justify-content-center">
-        <a href="Ventana_Vendedor.html.html" class="d-flex align-items-center text-decoration-none text-white">
-          <img src="../img/LogoEmpresa.png" alt="Logo EstilosPE" width="50" class="me-2">
-          <h3 class="m-0">EstilosPE</h3>
-        </a>
-      </div>
-      <hr>
-      <!-- Perfil de usuario -->
-      <div class="text-center mb-0">
-        <img src="../img/usuario.png" alt="Usuario" class="rounded-circle mb-2 usuario">
-        <h6 class="m-0">Salvador Goicochea</h6>
-        <h6 class="text-secondary">Vendedor</h6>
-      </div>
-      <hr>
-      <ul class="nav nav-pills flex-column mb-0">
-            <li><a href="ventas_Vendedor.html" class="nav-link active"><i class="bi bi-cart-check me-2"></i>Ventas</a></li>
-            <li><a href="Ventas_Insumos.html" class="nav-link"><i class="bi bi-box-seam me-2"></i>Insumos</a></li>
-            <li><a href="productos.html" class="nav-link"><i class="bi bi-tags me-2"></i>Productos</a></li>
-      </ul>
-    </aside>
-
-    <!-- Columna derecha -->
-    <div class="main">
-      <header class="app-header d-flex align-items-center shadow">
-        <!-- Si quieres algo a la izquierda, iría aquí -->
-        <!-- Bloque de acciones al lado derecho -->
-        <div class="header-inner d-flex align-items-center gap-2 ms-auto">
-          <!-- Notificaciones -->
-          <div class="action">
-            <button class="btn-icon" aria-label="Notificaciones">
-              <i class="bi bi-bell"></i>
-              <span class="badge-dot"></span>
+      <!-- Contenido Principal -->
+      <div class="main-content">
+        <header
+          class="app-header d-flex align-items-center shadow-sm p-3 bg-white"
+        >
+          <h4 class="mb-0">Panel Principal (Vendedor)</h4>
+          <div class="ms-auto d-flex align-items-center gap-3">
+            <div class="d-none d-sm-flex flex-column align-items-end">
+              <span
+                id="user-email"
+                class="fw-bold user-email"
+                title="Cargando email..."
+                >Cargando...</span
+              >
+            </div>
+            <img
+              src="../img/usuario.png"
+              alt="Avatar"
+              class="rounded-circle"
+              style="width: 40px"
+            />
+            <button
+              type="button"
+              id="logout-button"
+              class="btn btn-outline-danger"
+              aria-label="Cerrar sesión"
+            >
+              <i class="bi bi-box-arrow-right"></i>
             </button>
           </div>
-          <div class="vr mx-auto"></div>
-          <!-- Correo -->
-          <div class="action d-none d-sm-flex">
-            <div class="user-email text-truncate" title="usuario@empresa.com">
-              salvadorG@empresa.com
+        </header>
+
+        <main class="app-content p-4">
+          <div class="container-fluid">
+            <div class="row g-4">
+              <div class="col-12">
+                <div class="bg-light p-4 rounded-3">
+                  <h2 class="fw-bold">
+                    Bienvenido de nuevo,
+                    <span id="welcome-user-name">Vendedor</span>.
+                  </h2>
+                  <p class="text-muted">
+                    Listo para gestionar tus ventas y productos.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Tarjetas de Acceso Rápido -->
+              <div class="col-md-4">
+                <div class="card shadow-sm text-center h-100">
+                  <div
+                    class="card-body d-flex flex-column justify-content-center"
+                  >
+                    <i class="bi bi-cart-plus-fill fs-1 text-primary"></i>
+                    <h5 class="card-title mt-3">Registrar Ventas</h5>
+                    <p class="card-text">
+                      Crea y administra nuevas órdenes de venta.
+                    </p>
+                    <a
+                      href="ventas_Vendedor.html"
+                      class="btn btn-primary mt-auto"
+                      >Ir a Ventas</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card shadow-sm text-center h-100">
+                  <div
+                    class="card-body d-flex flex-column justify-content-center"
+                  >
+                    <i class="bi bi-tags-fill fs-1 text-success"></i>
+                    <h5 class="card-title mt-3">Consultar Productos</h5>
+                    <p class="card-text">
+                      Revisa el stock y los precios de los productos.
+                    </p>
+                    <a
+                      href="Ventas_Productos.html"
+                      class="btn btn-success mt-auto"
+                      >Ver Productos</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card shadow-sm text-center h-100">
+                  <div
+                    class="card-body d-flex flex-column justify-content-center"
+                  >
+                    <i class="bi bi-box-seam-fill fs-1 text-info"></i>
+                    <h5 class="card-title mt-3">Consultar Insumos</h5>
+                    <p class="card-text">
+                      Consulta la disponibilidad de insumos.
+                    </p>
+                    <a href="Ventas_Insumos.html" class="btn btn-info mt-auto"
+                      >Ver Insumos</a
+                    >
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-
-          <!-- Avatar -->
-          <div class="action">
-            <img src="../img/usuario.png" alt="Usuario" class="rounded-circle usuario">
-          </div>
-          <div class="vr mx-auto"></div>
-          <!-- Salir -->
-          <div class="action">
-            <form action="../index.html" method="get">
-              <button type="submit" class="btn-icon" aria-label="Cerrar sesión">
-                <i class="bi bi-box-arrow-right"></i>
-              </button>
-            </form>
-          </div>
-        </div>
-      </header>
-
-      <!-- Contenido debajo -->
-      <main class="app-content">
-        <div id="page-content-wrapper" class="p-4 flex-grow-1">
-            <h1 class="mb-4">Módulo de Ventas</h1>
-            <div class="d-flex gap-2 mb-3">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ventaModal" id="btnNuevaVenta">
-                    <i class="bi bi-plus-circle me-2"></i>Registrar Nueva Venta
-                </button>
-            </div>
-
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Listado de Ventas</h5>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover" id="tablaVentas">
-                            <thead>
-                                <tr>
-                                    <th scope="col" style="width: 5%;">ID</th>
-                                    <th scope="col" style="width: 30%;">Cliente</th>
-                                    <th scope="col" style="width: 15%;">Fecha</th>
-                                    <th scope="col" style="width: 15%;">Total</th>
-                                    <th scope="col" style="width: 15%;">Estado</th>
-                                    <th scope="col" style="width: 20%;">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <div class="modal fade" id="ventaModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Registrar/Actualizar Venta</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="formVenta">
-                        <input type="hidden" id="ventaId">
-                        <div class="mb-3">
-                            <label for="cliente" class="form-label">Cliente</label>
-                            <input type="text" class="form-control" id="cliente" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="fecha" class="form-label">Fecha</label>
-                            <input type="date" class="form-control" id="fecha" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="total" class="form-label">Monto Total</label>
-                            <input type="number" class="form-control" id="total" step="0.01" min="0" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="estado" class="form-label">Estado</label>
-                            <select class="form-select" id="estado" required>
-                                <option value="Completada">Completada</option>
-                                <option value="Pendiente">Pendiente</option>
-                                <option value="Cancelada">Cancelada</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-success">Guardar Venta</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+        </main>
+      </div>
     </div>
 
-    
-      </main>
-    </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/ventas.js"></script>
-</body>
-
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/logout.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const userName = sessionStorage.getItem("userName");
+        if (userName) {
+          const welcomeElement = document.getElementById("welcome-user-name");
+          if (welcomeElement) welcomeElement.textContent = userName;
+        }
+      });
+    </script>
+  </body>
 </html>

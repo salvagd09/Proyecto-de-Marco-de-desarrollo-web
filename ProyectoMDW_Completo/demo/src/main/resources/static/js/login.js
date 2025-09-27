@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             window.location.href = "html/ventana_vendedor.html";
                             break;
                         case "Contador":
-                            window.location.href = "html/PanelPrincipalContador.html";
+                            window.location.href = "html/Ventana_Contador.html";
                             break;
                         default:
                             alert("Login correcto, pero no hay una vista definida para el rol: " + data.rol);

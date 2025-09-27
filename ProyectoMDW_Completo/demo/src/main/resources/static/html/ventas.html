@@ -61,6 +61,48 @@
 
     <!-- Columna derecha -->
       <main class="app-content p-4">
+        <header class="app-header d-flex align-items-center shadow mb-3">
+          <!-- Si quieres algo a la izquierda, iría aquí -->
+          <!-- Bloque de acciones al lado derecho -->
+          <div class="header-inner d-flex align-items-center gap-2 ms-auto">
+            <!-- Notificaciones -->
+            <div class="action">
+              <button class="btn-icon" aria-label="Notificaciones">
+                <i class="bi bi-bell"></i>
+                <span class="badge-dot"></span>
+              </button>
+            </div>
+            <div class="vr mx-auto"></div>
+            <!-- Correo -->
+            <div class="action d-none d-sm-flex">
+              <div class="user-email text-truncate" title="usuario@empresa.com">
+                salvadorG@empresa.com
+              </div>
+            </div>
+
+            <!-- Avatar -->
+            <div class="action">
+              <img
+                src="../img/usuario.png"
+                alt="Usuario"
+                class="rounded-circle usuario"
+              />
+            </div>
+            <div class="vr mx-auto"></div>
+            <!-- Salir -->
+            <div class="action">
+              <form action="../index.html" method="get">
+                <button
+                  type="submit"
+                  class="btn-icon"
+                  aria-label="Cerrar sesión"
+                >
+                  <i class="bi bi-box-arrow-right"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </header>
           <div class="d-flex mb-3">
               <button type="button" class="btn btn-primary btn-crear" data-bs-toggle="modal" data-bs-target="#ventaModal" id="btnNuevaVenta">
                   <i class="bi bi-plus-circle me-2"></i>Registrar Nueva Venta

@@ -1,4 +1,4 @@
-**
+/**
  * productos.js - Lógica para el Módulo de Productos
  * Versión 2.0 - Conectado al backend Spring Boot.
  */
