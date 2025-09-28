@@ -66,6 +66,12 @@ function crearFilaProducto(producto) {
     const precioNumber = Number(producto.precio);
     const precioFormateado = Number.isFinite(precioNumber) ? precioNumber.toFixed(2) : producto.precio;
 
+    const esActivo = producto.estado === 'Activo';
+    const estadoBadge = esActivo ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger';
+    const iconoAccion = esActivo ? 'bi-trash' : 'bi-check2';
+    const claseAccion = esActivo ? 'btn-outline-danger' : 'btn-outline-success';
+    const tituloAccion = esActivo ? 'Desactivar producto' : 'Activar producto';
+
     row.innerHTML = `
         <td>${producto.sku ?? ''}</td>
         <td>
@@ -81,7 +87,7 @@ function crearFilaProducto(producto) {
         <td class="text-end">${producto.stockActual ?? 0}</td>
         <td class="text-end">S/ ${precioFormateado}</td>
         <td>
-            <span class="badge ${producto.estado === 'Activo' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'}">
+            <span class="badge ${estadoBadge}">
                 <i class="bi bi-check2-circle me-1"></i>${producto.estado ?? ''}
             </span>
         </td>
@@ -92,8 +98,8 @@ function crearFilaProducto(producto) {
             <button class="btn btn-sm btn-outline-secondary btn-edit-producto" data-bs-toggle="modal" data-bs-target="#modalEditarProducto" type="button">
                 <i class="bi bi-pencil"></i>
             </button>
-            <button class="btn btn-sm btn-outline-danger" type="button">
-                <i class="bi bi-trash"></i>
+            <button class="btn btn-sm ${claseAccion} btn-toggle-estado" type="button" title="${tituloAccion}">
+                <i class="bi ${iconoAccion}"></i>
             </button>
         </td>
     `;
@@ -101,6 +107,15 @@ function crearFilaProducto(producto) {
     const editButton = row.querySelector('.btn-edit-producto');
     if (editButton) {
         editButton.addEventListener('click', () => prepararEdicionProducto(producto));
+    }
+
+    const toggleButton = row.querySelector('.btn-toggle-estado');
+    if (toggleButton) {
+        toggleButton.addEventListener('click', () => {
+            const estaActivo = producto.estado === 'Activo';
+            const mensaje = estaActivo ? 'Producto desactivado' : 'Producto activado';
+            alert(mensaje);
+        });
     }
 
     return row;
@@ -270,7 +285,7 @@ document.getElementById('btnGuardarProducto').addEventListener('click', async fu
 
 
 // Función mejorada para cargar categorías CON TOKEN
-async function cargarCategorias(selectElement, selectedId) {
+async function cargarCategorias(selectElement, selectedId, placeholderText) {
     const select = selectElement || document.getElementById('idCategoria');
     if (!select) {
         console.warn('No se encontró el elemento select para categorías');
@@ -279,6 +294,7 @@ async function cargarCategorias(selectElement, selectedId) {
 
     const token = sessionStorage.getItem('jwtToken');
     const selectedValue = selectedId != null ? String(selectedId) : '';
+    const placeholder = placeholderText || 'Seleccionar categoría';
 
     try {
         console.log('🔍 Solicitando categorías...');
@@ -303,11 +319,11 @@ async function cargarCategorias(selectElement, selectedId) {
         console.log('✅ Categorías recibidas:', categorias);
 
         if (categorias.length === 0) {
-            select.innerHTML = '<option value="">No hay categorías disponibles</option>';
+            select.innerHTML = `<option value="">No hay categorías disponibles</option>`;
             return;
         }
 
-        select.innerHTML = '<option value="">Seleccionar categoría</option>';
+        select.innerHTML = `<option value="">${placeholder}</option>`;
         categorias.forEach(categoria => {
             const option = document.createElement('option');
             option.value = categoria.idCategoria;
@@ -322,7 +338,7 @@ async function cargarCategorias(selectElement, selectedId) {
         console.log(`✅ ${categorias.length} categorías cargadas`);
     } catch (error) {
         console.error('❌ Error cargando categorías:', error);
-        select.innerHTML = '<option value="">Error cargando categorías</option>';
+        select.innerHTML = `<option value="">${placeholder}</option>`;
 
         if (error.message && error.message.includes('No autorizado')) {
             alert('Sesión expirada. Por favor, inicie sesión nuevamente.');
@@ -357,6 +373,11 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('🖱️ Click en Nuevo Producto - precargando categorías...');
             setTimeout(() => cargarCategorias(), 100);
         });
+    }
+
+    const filtroCategoria = document.getElementById('filtroCategoria');
+    if (filtroCategoria) {
+        cargarCategorias(filtroCategoria, null, 'Todas las categorías');
     }
 });
 // En tu formulario, usa un SKU diferente

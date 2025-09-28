@@ -56,49 +56,41 @@
               <div class="dropdown-menu dropdown-menu-end p-2" style="min-width: 280px">
                 <!-- Filtro de Estado -->
                 <div class="mb-2">
-                  <div class="small text-muted mb-1">Estado</div>
-                  <div class="d-flex gap-2 flex-wrap">
-                    <input type="checkbox" id="activo" class="filter-option" data-filter="estado" value="activo">
-                    <label for="activo" class="btn btn-sm btn-outline-secondary">Activo</label>
-                    <input type="checkbox" id="inactivo" class="filter-option" data-filter="estado" value="inactivo">
-                    <label for="inactivo" class="btn btn-sm btn-outline-secondary">Inactivo</label>
-                  </div>
+                  <label class="small text-muted mb-1" for="filtroEstado">Estado</label>
+                  <select id="filtroEstado" class="form-select form-select-sm">
+                    <option value="">Todos</option>
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                  </select>
                 </div>
 
                 <!-- Filtro de Stock -->
                 <div class="mb-2">
-                  <div class="small text-muted mb-1">Stock</div>
-                  <div class="d-flex gap-2 flex-wrap">
-                    <input type="checkbox" id="bajoStock" class="filter-option" data-filter="stock" value="bajo">
-                    <label for="bajoStock" class="btn btn-sm btn-outline-secondary">Bajo (&le; 10)</label>
-                    <input type="checkbox" id="suficienteStock" class="filter-option" data-filter="stock"
-                      value="suficiente">
-                    <label for="suficienteStock" class="btn btn-sm btn-outline-secondary">Suficiente (&gt; 10)</label>
-                  </div>
+                  <label class="small text-muted mb-1" for="filtroStock">Stock</label>
+                  <select id="filtroStock" class="form-select form-select-sm">
+                    <option value="">Todos</option>
+                    <option value="bajo">Menor a 20 unidades</option>
+                    <option value="alto">20 unidades o más</option>
+                  </select>
                 </div>
 
                 <!-- Filtro de Precio -->
                 <div class="mb-2">
-                  <div class="small text-muted mb-1">Precio</div>
-                  <div class="d-flex gap-2 flex-wrap">
-                    <input type="number" id="precioMin" placeholder="Precio Mínimo"
-                      class="form-control form-control-sm">
-                    <input type="number" id="precioMax" placeholder="Precio Máximo"
-                      class="form-control form-control-sm">
-                  </div>
+                  <label class="small text-muted mb-1" for="filtroPrecio">Precio</label>
+                  <select id="filtroPrecio" class="form-select form-select-sm">
+                    <option value="">Todos</option>
+                    <option value="economico">Económico (≤ S/ 50)</option>
+                    <option value="medio">Intermedio (S/ 51 - S/ 120)</option>
+                    <option value="premium">Premium (&gt; S/ 120)</option>
+                  </select>
                 </div>
 
                 <!-- Filtro de Categoría -->
                 <div class="mb-2">
-                  <div class="small text-muted mb-1">Categoría</div>
-                  <div class="d-flex gap-2 flex-wrap">
-                    <select id="categoria" class="form-control form-control-sm">
-                      <option value="">Selecciona una categoría</option>
-                      <option value="camisetas">Camisetas</option>
-                      <option value="pantalones">Pantalones</option>
-                      <option value="chaquetas">Chaquetas</option>
-                    </select>
-                  </div>
+                  <label class="small text-muted mb-1" for="filtroCategoria">Categoría</label>
+                  <select id="filtroCategoria" class="form-select form-select-sm">
+                    <option value="">Todas las categorías</option>
+                  </select>
                 </div>
 
                 <!-- Botón de Aplicar Filtros -->
@@ -109,13 +101,6 @@
             <!-- Botón "Nuevo producto" -->
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrearProducto">
               <i class="bi bi-plus-lg me-1"></i> Nuevo producto
-            </button>
-
-            <!-- Botón editar (en cada fila) -->
-            <label for="EditarFila1" class="d-none">Selecciona una opcion</label>
-            <button id="EditarFila1" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
-              data-bs-target="#modalEditarProducto" type="button">
-              <i class="bi bi-pencil"></i>
             </button>
           </div>
 
