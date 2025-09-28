@@ -1,12 +1,19 @@
 package com.marcosdeDesarrollo.demo.Service;
 
+import com.marcosdeDesarrollo.demo.DTO.CategoriaDto;
+import com.marcosdeDesarrollo.demo.DTO.ProductoRequestDto;
+import com.marcosdeDesarrollo.demo.DTO.ProductoResponseDto;
+import com.marcosdeDesarrollo.demo.Entity.Categoria;
 import com.marcosdeDesarrollo.demo.Entity.Estado;
 import com.marcosdeDesarrollo.demo.Entity.Producto;
+import com.marcosdeDesarrollo.demo.Repository.CategoriaRepository;
 import com.marcosdeDesarrollo.demo.Repository.ProductoRepository;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
+
 @Service
 @Transactional
 public class ProductoService {
@@ -14,63 +21,105 @@ public class ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
 
-    // Método para obtener todos los productos
-    public List<Producto> obtenerTodosLosProductos() {
-        return productoRepository.findAll();
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
+    public List<ProductoResponseDto> obtenerTodosLosProductos() {
+        return productoRepository.findAll()
+                .stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
 
-    // Método para obtener productos activos
     public long contarProductosActivos() {
         return productoRepository.countByEstado(Estado.Activo);
     }
 
-    // Método para obtener productos con stock bajo (menor de 20)
     public long contarStockBajo() {
         return productoRepository.countByStockActualLessThan(20);
     }
 
-    // Método para contar el total de productos
     public long contarTotalProductos() {
         return productoRepository.count();
     }
 
-    // NUEVO MÉTODO QUE DEBES AÑADIR - PARA EL POST
-    public Producto guardarProducto(Producto producto) {
+    public ProductoResponseDto guardarProducto(ProductoRequestDto productoDto) {
         try {
-            // Validaciones básicas
-            if (producto.getSku() == null || producto.getSku().trim().isEmpty()) {
+            if (productoDto == null) {
+                throw new IllegalArgumentException("Los datos del producto son obligatorios");
+            }
+
+            if (productoDto.getSku() == null || productoDto.getSku().trim().isEmpty()) {
                 throw new IllegalArgumentException("El SKU es obligatorio");
             }
-            
-            // Limpiar el SKU
-            String skuLimpio = producto.getSku().trim();
-            producto.setSku(skuLimpio);
-            
-            // DEBUG detallado
-            System.out.println("=== DEBUG GUARDAR PRODUCTO ===");
-            System.out.println("SKU a guardar: '" + skuLimpio + "'");
-            System.out.println("Nombre a guardar: '" + producto.getNombreProducto() + "'");
-            
-            // Verificar si el SKU ya existe
-            boolean skuExiste = productoRepository.existsBySku(skuLimpio);
-            System.out.println("¿SKU existe en BD? " + skuExiste);
-            
-            if (skuExiste) {
-                Producto existente = productoRepository.findBySkuIgnoreCase(skuLimpio);
-                throw new IllegalArgumentException("El SKU '" + skuLimpio + "' ya existe. Está siendo usado por: " + existente.getNombreProducto());
+
+            if (productoDto.getCategoriaId() == null || productoDto.getCategoriaId() <= 0) {
+                throw new IllegalArgumentException("La categoría es obligatoria");
             }
-            
-            System.out.println("✅ SKU válido, guardando producto...");
-            return productoRepository.save(producto);
-            
+
+            String skuLimpio = productoDto.getSku().trim();
+
+            Producto existente = productoRepository.findBySkuIgnoreCase(skuLimpio);
+            if (existente != null) {
+                throw new IllegalArgumentException(
+                        "El SKU '" + skuLimpio + "' ya existe. Está siendo usado por: " + existente.getNombreProducto());
+            }
+
+            Categoria categoria = categoriaRepository.findById(productoDto.getCategoriaId())
+                    .orElseThrow(() -> new IllegalArgumentException("La categoría especificada no existe"));
+
+            Producto producto = new Producto();
+            producto.setSku(skuLimpio);
+            producto.setNombreProducto(productoDto.getNombreProducto());
+            producto.setDescripcion(productoDto.getDescripcion());
+            producto.setStockActual(productoDto.getStockActual());
+            producto.setPrecio(productoDto.getPrecio());
+            producto.setTalla(productoDto.getTalla());
+            producto.setColor(productoDto.getColor());
+            producto.setEstado(productoDto.getEstado());
+            producto.setImagenProducto(productoDto.getImagenProducto());
+            producto.setCategoria(categoria);
+
+            Producto guardado = productoRepository.save(producto);
+            return mapToResponse(guardado);
+
         } catch (IllegalArgumentException e) {
-            // Manejo de errores específicos
             System.out.println("❌ Error al guardar producto: " + e.getMessage());
             throw e;
         } catch (Exception e) {
-            // Captura de errores generales
             System.out.println("❌ Error inesperado: " + e.getMessage());
             throw new RuntimeException("Error inesperado al guardar el producto", e);
         }
+    }
+
+    private ProductoResponseDto mapToResponse(Producto producto) {
+        ProductoResponseDto dto = new ProductoResponseDto();
+        dto.setIdProducto(producto.getIdProducto());
+        dto.setSku(producto.getSku());
+        dto.setNombreProducto(producto.getNombreProducto());
+        dto.setDescripcion(producto.getDescripcion());
+        dto.setStockActual(producto.getStockActual());
+        dto.setPrecio(producto.getPrecio());
+        dto.setTalla(producto.getTalla());
+        dto.setColor(producto.getColor());
+        dto.setEstado(producto.getEstado());
+        dto.setImagenProducto(producto.getImagenProducto());
+        dto.setFechaCreacion(producto.getFechaCreacion());
+        dto.setFechaActualizacion(producto.getFechaActualizacion());
+        dto.setCategoria(mapToCategoriaDto(producto.getCategoria()));
+        return dto;
+    }
+
+    private CategoriaDto mapToCategoriaDto(Categoria categoria) {
+        if (categoria == null) {
+            return null;
+        }
+        CategoriaDto dto = new CategoriaDto();
+        dto.setIdCategoria(categoria.getIdCategoria());
+        dto.setNombreCategoria(categoria.getNombreCategoria());
+        dto.setDescripcion(categoria.getDescripcion());
+        dto.setEstado(categoria.getEstado());
+        dto.setFechaCreacion(categoria.getFechaCreacion());
+        return dto;
     }
 }

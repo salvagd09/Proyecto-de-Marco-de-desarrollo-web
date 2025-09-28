@@ -3,7 +3,6 @@
  * Versión 2.0 - Conectado al backend Spring Boot.
  */
 
-
 document.addEventListener("DOMContentLoaded", function () {
     // Cargar los productos cuando el documento esté listo
     cargarProductos();
@@ -45,46 +44,118 @@ async function obtenerProductos() {
 
 // Mostrar los productos en la interfaz (opcional)
 function mostrarProductos(productos) {
-    const tableBody = document.querySelector('#productos-body');
-    tableBody.innerHTML = ''; // Limpiar la tabla antes de añadir los productos
+    const tableBody = obtenerTablaProductos();
+    if (!tableBody) {
+        return;
+    }
+
+    tableBody.innerHTML = '';
 
     productos.forEach(producto => {
-        const row = document.createElement('tr');
-
-        row.innerHTML = `
-            <td>${producto.sku}</td>
-            <td>
-                <div class="d-flex align-items-center gap-2">
-                    <div>
-                        <div class="fw-semibold">${producto.nombreProducto}</div>
-                        <div class="small text-muted">${producto.descripcion}</div>
-                    </div>
-                </div>
-            </td>
-            <td><span class="badge bg-secondary-subtle text-secondary">${producto.categoria.nombreCategoria}</span></td>
-            <td><span class="badge bg-info-subtle text-info">${producto.talla} / ${producto.color}</span></td>
-            <td class="text-end">${producto.stockActual}</td>
-            <td class="text-end">S/ ${producto.precio.toFixed(2)}</td>
-            <td>
-                <span class="badge ${producto.estado === 'Activo' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'}">
-                    <i class="bi bi-check2-circle me-1"></i>${producto.estado}
-                </span>
-            </td>
-            <td class="d-flex gap-2">
-                <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalVerProducto" type="button">
-                    <i class="bi bi-eye"></i>
-                </button>
-                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalEditarProducto" type="button">
-                    <i class="bi bi-pencil"></i>
-                </button>
-                <button class="btn btn-sm btn-outline-danger" type="button">
-                    <i class="bi bi-trash"></i>
-                </button>
-            </td>
-        `;
-
-        tableBody.appendChild(row); // Añadir la fila a la tabla
+        tableBody.appendChild(crearFilaProducto(producto));
     });
+}
+
+function obtenerTablaProductos() {
+    return document.querySelector('#productos-body') || document.querySelector('#tablaProductos tbody');
+}
+
+function crearFilaProducto(producto) {
+    const row = document.createElement('tr');
+    const categoriaNombre = producto.categoria && producto.categoria.nombreCategoria ? producto.categoria.nombreCategoria : 'Sin categoría';
+    const precioNumber = Number(producto.precio);
+    const precioFormateado = Number.isFinite(precioNumber) ? precioNumber.toFixed(2) : producto.precio;
+
+    row.innerHTML = `
+        <td>${producto.sku ?? ''}</td>
+        <td>
+            <div class="d-flex align-items-center gap-2">
+                <div>
+                    <div class="fw-semibold">${producto.nombreProducto ?? ''}</div>
+                    <div class="small text-muted">${producto.descripcion ?? ''}</div>
+                </div>
+            </div>
+        </td>
+        <td><span class="badge bg-secondary-subtle text-secondary">${categoriaNombre}</span></td>
+        <td><span class="badge bg-info-subtle text-info">${producto.talla ?? ''} / ${producto.color ?? ''}</span></td>
+        <td class="text-end">${producto.stockActual ?? 0}</td>
+        <td class="text-end">S/ ${precioFormateado}</td>
+        <td>
+            <span class="badge ${producto.estado === 'Activo' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'}">
+                <i class="bi bi-check2-circle me-1"></i>${producto.estado ?? ''}
+            </span>
+        </td>
+        <td class="d-flex gap-2">
+            <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalVerProducto" type="button">
+                <i class="bi bi-eye"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary btn-edit-producto" data-bs-toggle="modal" data-bs-target="#modalEditarProducto" type="button">
+                <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger" type="button">
+                <i class="bi bi-trash"></i>
+            </button>
+        </td>
+    `;
+
+    const editButton = row.querySelector('.btn-edit-producto');
+    if (editButton) {
+        editButton.addEventListener('click', () => prepararEdicionProducto(producto));
+    }
+
+    return row;
+}
+
+let productoEnEdicion = null;
+
+function setInputValue(id, value) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.value = value ?? '';
+    }
+}
+
+function setSelectValue(id, value) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.value = value ?? '';
+    }
+}
+
+async function prepararEdicionProducto(producto) {
+    try {
+        productoEnEdicion = producto;
+
+        setInputValue('editarIdProducto', producto.idProducto);
+        setInputValue('editarSku', producto.sku);
+        setInputValue('editarNombreProducto', producto.nombreProducto);
+        setInputValue('editarDescripcion', producto.descripcion);
+
+        const precio = producto.precio != null ? Number(producto.precio) : '';
+        setInputValue('editarPrecio', Number.isFinite(precio) ? precio : (producto.precio ?? ''));
+
+        const stock = producto.stockActual != null ? Number(producto.stockActual) : '';
+        setInputValue('editarStockActual', Number.isFinite(stock) ? stock : (producto.stockActual ?? ''));
+
+        setSelectValue('editarTalla', producto.talla);
+        setInputValue('editarColor', producto.color);
+        setSelectValue('editarEstado', producto.estado || 'Activo');
+        setInputValue('editarImagenProducto', producto.imagenProducto);
+
+        const categoriaSelect = document.getElementById('editarCategoria');
+        const categoriaId = producto.categoria && producto.categoria.idCategoria != null
+            ? producto.categoria.idCategoria
+            : null;
+
+        await cargarCategorias(categoriaSelect, categoriaId);
+
+        if (categoriaSelect) {
+            categoriaSelect.value = categoriaId != null ? String(categoriaId) : '';
+        }
+    } catch (error) {
+        console.error('❌ Error al preparar el modal de edición:', error);
+        mostrarError('No se pudo cargar el producto para edición.');
+    }
 }
 
 // Mostrar mensajes de error en la interfaz
@@ -145,19 +216,19 @@ document.getElementById('btnGuardarProducto').addEventListener('click', async fu
         return;
     }
 
+    const categoriaSeleccionada = document.getElementById('idCategoria').value;
+
     const productoData = {
         sku: document.getElementById('sku').value,
         nombreProducto: document.getElementById('nombreProducto').value,
         descripcion: document.getElementById('descripcion').value,
-        stockActual: parseInt(document.getElementById('stockActual').value),
+        stockActual: parseInt(document.getElementById('stockActual').value, 10),
         precio: parseFloat(document.getElementById('precio').value),
         talla: document.getElementById('talla').value || null,
         color: document.getElementById('color').value || null,
         estado: document.getElementById('estado').value,
         imagenProducto: document.getElementById('imagenProducto').value || null,
-        categoria: {
-            idCategoria: parseInt(document.getElementById('idCategoria').value)
-        }
+        categoriaId: categoriaSeleccionada ? parseInt(categoriaSeleccionada, 10) : null
     };
 
     try {
@@ -176,16 +247,15 @@ document.getElementById('btnGuardarProducto').addEventListener('click', async fu
             const nuevoProducto = await response.json();
             alert('Producto creado exitosamente!');
 
-            // Cerrar modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('modalCrearProducto'));
+            const modalElement = document.getElementById('modalCrearProducto');
+            const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
             modal.hide();
 
-            // Limpiar formulario
             form.reset();
 
-            // Recargar la lista de productos (si tienes una función para esto)
-            if (typeof cargarProductos === 'function') {
-                cargarProductos();
+            const tableBody = obtenerTablaProductos();
+            if (tableBody) {
+                tableBody.appendChild(crearFilaProducto(nuevoProducto));
             }
 
         } else {
@@ -200,9 +270,15 @@ document.getElementById('btnGuardarProducto').addEventListener('click', async fu
 
 
 // Función mejorada para cargar categorías CON TOKEN
-async function cargarCategorias() {
-    const select = document.getElementById('idCategoria');
-    const token = sessionStorage.getItem('jwtToken'); // Obtener el token JWT
+async function cargarCategorias(selectElement, selectedId) {
+    const select = selectElement || document.getElementById('idCategoria');
+    if (!select) {
+        console.warn('No se encontró el elemento select para categorías');
+        return;
+    }
+
+    const token = sessionStorage.getItem('jwtToken');
+    const selectedValue = selectedId != null ? String(selectedId) : '';
 
     try {
         console.log('🔍 Solicitando categorías...');
@@ -212,49 +288,50 @@ async function cargarCategorias() {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token ? `Bearer ${token}` : '' // Incluir el token
+                'Authorization': token ? `Bearer ${token}` : ''
             }
         });
 
-        if (response.ok) {
-            const categorias = await response.json();
-            console.log('✅ Categorías recibidas:', categorias);
-
-            if (categorias.length > 0) {
-                select.innerHTML = '<option value="">Seleccionar categoría</option>';
-
-                categorias.forEach(categoria => {
-                    const option = document.createElement('option');
-                    option.value = categoria.idCategoria;
-                    option.textContent = categoria.nombreCategoria;
-                    select.appendChild(option);
-                });
-
-                console.log(`✅ ${categorias.length} categorías cargadas`);
-            } else {
-                select.innerHTML = '<option value="">No hay categorías disponibles</option>';
-                console.warn('⚠️ No hay categorías disponibles');
+        if (!response.ok) {
+            if (response.status === 401) {
+                throw new Error('No autorizado. Por favor, inicie sesión nuevamente.');
             }
-        } else if (response.status === 401) {
-            throw new Error('No autorizado. Por favor, inicie sesión nuevamente.');
-        } else {
             throw new Error(`Error HTTP: ${response.status}`);
         }
+
+        const categorias = await response.json();
+        console.log('✅ Categorías recibidas:', categorias);
+
+        if (categorias.length === 0) {
+            select.innerHTML = '<option value="">No hay categorías disponibles</option>';
+            return;
+        }
+
+        select.innerHTML = '<option value="">Seleccionar categoría</option>';
+        categorias.forEach(categoria => {
+            const option = document.createElement('option');
+            option.value = categoria.idCategoria;
+            option.textContent = categoria.nombreCategoria;
+            select.appendChild(option);
+        });
+
+        if (selectedValue) {
+            select.value = selectedValue;
+        }
+
+        console.log(`✅ ${categorias.length} categorías cargadas`);
     } catch (error) {
         console.error('❌ Error cargando categorías:', error);
-        select.innerHTML = `
-            <option value="">Error cargando categorías</option>
-            <option value="1">Polos</option>
-            <option value="2">Pantalones</option>
-            <option value="3">Casacas</option>
-            <option value="4">Accesorios</option>
-        `;
+        select.innerHTML = '<option value="">Error cargando categorías</option>';
 
-        // Mostrar error si es de autenticación
-        if (error.message.includes('No autorizado')) {
+        if (error.message && error.message.includes('No autorizado')) {
             alert('Sesión expirada. Por favor, inicie sesión nuevamente.');
-            window.location.href = '/login.html'; // Redirigir al login
+            window.location.href = '/login.html';
         }
+    }
+
+    if (!selectedValue) {
+        select.value = '';
     }
 }
 
@@ -266,6 +343,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (modal) {
         modal.addEventListener('show.bs.modal', function () {
             console.log('🎯 Modal abierto - cargando categorías...');
+            const skuInput = document.getElementById('sku');
+            if (skuInput) {
+                skuInput.value = generarSKUUnico();
+            }
             cargarCategorias();
         });
     }
@@ -283,191 +364,3 @@ function generarSKUUnico() {
     const random = Math.floor(Math.random() * 10000);
     return `SKU-${Date.now().toString().slice(-6)}-${random}`;
 }
-
-// Al abrir el modal, genera SKU automáticamente
-document.getElementById('modalCrearProducto').addEventListener('show.bs.modal', function() {
-    document.getElementById('sku').value = generarSKUUnico();
-    cargarCategorias();
-});
-
-//Antiguo javascript
-/*
-document.addEventListener('DOMContentLoaded', () => {
-    const tablaBody = document.querySelector('#tablaProductos tbody');
-    const modal = new bootstrap.Modal(document.getElementById('productoModal'));
-    const form = document.getElementById('formProducto');
-    const modalTitle = document.getElementById('modalLabel');
-    const productoIdInput = document.getElementById('productoId');
-    const btnNuevoProducto = document.getElementById('btnNuevoProducto');
-
-    // ================== CAMBIO CLAVE ==================
-    // Usamos la URL completa del backend para que el frontend sepa dónde hacer las peticiones.
-    const API_URL = 'http://localhost:8080/api/productos';
-
-    // --- SECCIÓN 1: FUNCIONES DE AYUDA Y RENDERIZADO ---
-
-    function getToken() {
-        return sessionStorage.getItem('jwtToken');
-    }
-
-    function handleApiError(response) {
-        if (response.status === 401 || response.status === 403) {
-            alert('Su sesión ha expirado o no tiene permisos. Por favor, inicie sesión de nuevo.');
-            window.location.href = '/html/login.html';
-        } else {
-            console.error(`Error de API: ${response.status} ${response.statusText}`);
-        }
-    }
-
-    async function renderizarTabla() {
-        const token = getToken();
-        if (!token) return;
-
-        try {
-            const response = await fetch(API_URL, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-
-            if (!response.ok) {
-                handleApiError(response);
-                return;
-            }
-
-            const productos = await response.json();
-            tablaBody.innerHTML = '';
-            productos.forEach(producto => {
-                const row = document.createElement('tr');
-                // Añadimos las clases para que auth.js gestione los permisos
-                row.innerHTML = `
-                    <td>${producto.id}</td>
-                    <td>${producto.nombre}</td>
-                    <td>${producto.categoria}</td>
-                    <td>S/. ${parseFloat(producto.precio).toFixed(2)}</td>
-                    <td>${producto.stock}</td>
-                    <td class="col-acciones">
-                        <button class="btn btn-sm btn-info btn-editar" data-producto-id="${producto.id}" title="Editar"><i class="bi bi-pencil-square"></i></button>
-                        <button class="btn btn-sm btn-danger btn-eliminar" data-producto-id="${producto.id}" title="Eliminar"><i class="bi bi-trash"></i></button>
-                    </td>
-                `;
-                tablaBody.appendChild(row);
-            });
-        } catch (error) {
-            console.error('Error al renderizar la tabla de productos:', error);
-            alert('No se pudieron cargar los datos de productos.');
-        }
-    }
-
-    // --- SECCIÓN 2: MANEJO DE EVENTOS ---
-
-    tablaBody.addEventListener('click', async (event) => {
-        const target = event.target.closest('button');
-        if (!target) return;
-
-        const productoId = target.dataset.productoId;
-
-        if (target.classList.contains('btn-editar')) {
-            await editarProducto(productoId);
-        } else if (target.classList.contains('btn-eliminar')) {
-            await eliminarProducto(productoId);
-        }
-    });
-
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const token = getToken();
-
-        const productoData = {
-            nombre: document.getElementById('nombre').value,
-            categoria: document.getElementById('categoria').value,
-            precio: parseFloat(document.getElementById('precio').value),
-            stock: parseInt(document.getElementById('stock').value, 10),
-        };
-
-        const productoId = productoIdInput.value;
-        const method = productoId ? 'PUT' : 'POST';
-        const url = productoId ? `${API_URL}/${productoId}` : API_URL;
-
-        try {
-            const response = await fetch(url, {
-                method: method,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(productoData)
-            });
-
-            if (!response.ok) {
-                handleApiError(response);
-                throw new Error('Falló la solicitud de guardar.');
-            }
-
-            alert(`Producto ${productoId ? 'actualizado' : 'registrado'} con éxito.`);
-            modal.hide();
-            await renderizarTabla();
-        } catch (error) {
-            console.error('Error al guardar el producto:', error);
-            alert('No se pudo guardar el producto.');
-        }
-    });
-
-    btnNuevoProducto.addEventListener('click', () => {
-        form.reset();
-        productoIdInput.value = '';
-        modalTitle.textContent = 'Registrar Nuevo Producto';
-        modal.show();
-    });
-
-    // --- SECCIÓN 3: FUNCIONES DE ACCIÓN ---
-
-    async function editarProducto(id) {
-        const token = getToken();
-        try {
-            const response = await fetch(`${API_URL}/${id}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (!response.ok) {
-                handleApiError(response);
-                return;
-            }
-            const producto = await response.json();
-
-            modalTitle.textContent = 'Actualizar Producto';
-            productoIdInput.value = producto.id;
-            document.getElementById('nombre').value = producto.nombre;
-            document.getElementById('categoria').value = producto.categoria;
-            document.getElementById('precio').value = producto.precio;
-            document.getElementById('stock').value = producto.stock;
-            modal.show();
-        } catch (error) {
-            console.error(`Error al obtener datos para editar el producto #${id}:`, error);
-        }
-    }
-
-    async function eliminarProducto(id) {
-        if (!confirm(`¿Estás seguro de que deseas eliminar el Producto #${id}?`)) return;
-
-        const token = getToken();
-        try {
-            const response = await fetch(`${API_URL}/${id}`, {
-                method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-
-            if (!response.ok) {
-                handleApiError(response);
-                throw new Error('Falló la solicitud de eliminar.');
-            }
-
-            alert(`Producto #${id} eliminado con éxito.`);
-            await renderizarTabla();
-        } catch (error) {
-            console.error(`Error al eliminar el producto #${id}:`, error);
-            alert('No se pudo eliminar el producto.');
-        }
-    }
-
-    // --- INICIALIZACIÓN ---
-    renderizarTabla();
-});
-*/
