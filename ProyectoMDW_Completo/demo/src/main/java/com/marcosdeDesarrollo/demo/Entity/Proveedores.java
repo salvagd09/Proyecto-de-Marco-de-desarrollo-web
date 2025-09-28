@@ -1,4 +1,4 @@
-package com.marcosdeDesarrollo.demo.Entity;
+/* package com.marcosdeDesarrollo.demo.Entity;
 
 import jakarta.persistence.*;
 
@@ -54,3 +54,4 @@ public class Proveedores {
         this.email = email;
     }
 }
+//     */

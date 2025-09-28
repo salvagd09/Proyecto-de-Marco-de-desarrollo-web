@@ -1,3 +1,4 @@
+/* 
 package com.marcosdeDesarrollo.demo.Entity;
 
 import jakarta.persistence.*;
@@ -49,3 +50,4 @@ public class DetalleOrden {
         this.precio_unitario = precio_unitario;
     }
 }
+        */

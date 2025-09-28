@@ -1,3 +1,4 @@
+/* 
 package com.marcosdeDesarrollo.demo.Service;
 
 import com.marcosdeDesarrollo.demo.Entity.Venta;
@@ -10,3 +11,4 @@ public interface VentaService {
     Venta actualizarVenta(Integer id, Venta venta);
     void eliminarVenta(Integer id);
 }
+    */

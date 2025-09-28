@@ -1,3 +1,4 @@
+/* 
 package com.marcosdeDesarrollo.demo.Entity;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -69,3 +70,4 @@ public class Insumos {
         this.estado = estado;
     }
 }
+// */

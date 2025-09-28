@@ -1,3 +1,4 @@
+/* 
 package com.marcosdeDesarrollo.demo.Entity;
 
 import jakarta.persistence.Embeddable;
@@ -34,3 +35,5 @@ public class Producto_InsumosId implements Serializable {
         return Objects.hash(id_producto, id_insumo);
     }
 }
+
+    */

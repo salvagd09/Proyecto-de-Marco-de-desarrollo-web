@@ -1,3 +1,4 @@
+/* 
 package com.marcosdeDesarrollo.demo.Service;
 
 import com.marcosdeDesarrollo.demo.Entity.Venta;
@@ -44,3 +45,5 @@ public class VentaServiceImpl implements VentaService {
         ventaRepository.deleteById(id);
     }
 }
+
+        */

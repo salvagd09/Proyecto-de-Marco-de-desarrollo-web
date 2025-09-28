@@ -1,3 +1,4 @@
+/* 
 package com.marcosdeDesarrollo.demo.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,3 +30,4 @@ public class VendedorController {
         return "Vendedor/Ventas_Insumos"; 
     }
 }
+*/

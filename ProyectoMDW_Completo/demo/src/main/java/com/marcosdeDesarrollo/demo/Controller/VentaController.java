@@ -1,3 +1,4 @@
+/* 
 package com.marcosdeDesarrollo.demo.Controller;
 
 import com.marcosdeDesarrollo.demo.Entity.Venta;
@@ -46,3 +47,4 @@ public class VentaController {
         return ResponseEntity.noContent().build();
     }
 }
+        */

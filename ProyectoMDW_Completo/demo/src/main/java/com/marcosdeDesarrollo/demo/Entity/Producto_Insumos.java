@@ -1,3 +1,4 @@
+/* 
 package com.marcosdeDesarrollo.demo.Entity;
 
 import jakarta.persistence.*;
@@ -48,3 +49,4 @@ public class Producto_Insumos {
         this.insumos = insumos;
     }
 }
+     */

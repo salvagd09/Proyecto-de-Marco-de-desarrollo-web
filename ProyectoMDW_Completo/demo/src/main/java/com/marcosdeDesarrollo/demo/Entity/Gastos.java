@@ -1,3 +1,4 @@
+/* 
 package com.marcosdeDesarrollo.demo.Entity;
 
 import jakarta.persistence.*;
@@ -85,3 +86,5 @@ public class Gastos {
         this.estado = estado;
     }
 }
+    
+*/

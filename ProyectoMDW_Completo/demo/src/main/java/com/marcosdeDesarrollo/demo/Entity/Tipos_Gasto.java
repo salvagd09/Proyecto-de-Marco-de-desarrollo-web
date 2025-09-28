@@ -1,3 +1,4 @@
+/* 
 package com.marcosdeDesarrollo.demo.Entity;
 
 import jakarta.persistence.*;
@@ -28,3 +29,4 @@ public class Tipos_Gasto {
         this.nombre_tipo = nombre_tipo;
     }
 }
+    */

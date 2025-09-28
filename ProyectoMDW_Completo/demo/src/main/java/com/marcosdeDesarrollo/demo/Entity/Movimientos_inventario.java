@@ -1,3 +1,4 @@
+/* s 
 package com.marcosdeDesarrollo.demo.Entity;
 
 import jakarta.persistence.*;
@@ -33,3 +34,4 @@ public class Movimientos_inventario {
     private int stock_nuevo;
 
 }
+    */
