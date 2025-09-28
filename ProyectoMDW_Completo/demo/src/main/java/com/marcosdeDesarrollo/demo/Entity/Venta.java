@@ -9,6 +9,7 @@ import java.util.List;
 public class Venta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_venta")
     private Integer idVenta;
 
     @Column(name = "id_usuario")
@@ -34,11 +35,11 @@ public class Venta {
 
     // Getters y setters
 
-    public enum EstadoVenta {
+    private enum EstadoVenta {
         Pendiente, Pagada, Cancelada
     }
 
-    public enum MetodoPago {
+    private enum MetodoPago {
         Efectivo, Tarjeta, Transferencia
     }
 

@@ -7,13 +7,13 @@ import jakarta.persistence.*;
 public class DetalleVenta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_orden")
     private Integer idDetalle;
-
     @ManyToOne
     @JoinColumn(name = "id_venta", nullable = false)
     private Venta venta;
-
-    @Column(name = "id_producto")
+    @ManyToOne
+    @JoinColumn(name="id_producto",nullable=false)
     private Integer idProducto;
 
     private Integer cantidad;
