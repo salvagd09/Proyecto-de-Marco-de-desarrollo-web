@@ -1,6 +1,4 @@
 package com.marcosdeDesarrollo.demo.Repository;
-
-import java.util.Optional;
 import com.marcosdeDesarrollo.demo.Entity.Estado;
 import com.marcosdeDesarrollo.demo.Entity.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -2,7 +2,6 @@ package com.marcosdeDesarrollo.demo.Controller;
 
 import com.marcosdeDesarrollo.demo.Entity.Categoria;
 import com.marcosdeDesarrollo.demo.Service.CategoriaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +14,15 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class CategoriaController {
 
-    @Autowired
-    private CategoriaService categoriaService;
+    private final CategoriaService categoriaService;
+
+    CategoriaController(CategoriaService categoriaService) {
+        this.categoriaService = categoriaService;
+    }
 
     // Obtener todas las categorías
     @GetMapping
-    public ResponseEntity<List<Categoria>> obtenerTodasLasCategorias() {
+    public ResponseEntity<?> obtenerTodasLasCategorias() {
         try {
             List<Categoria> categorias = categoriaService.obtenerTodasLasCategorias();
             return ResponseEntity.ok(categorias);

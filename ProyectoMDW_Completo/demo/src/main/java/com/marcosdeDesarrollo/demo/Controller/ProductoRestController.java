@@ -2,7 +2,6 @@ package com.marcosdeDesarrollo.demo.Controller;
 
 import com.marcosdeDesarrollo.demo.Entity.Producto;
 import com.marcosdeDesarrollo.demo.Service.ProductoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,8 +19,11 @@ import java.util.Map;
 @CrossOrigin(origins = "*") // Para permitir requests desde tu frontend
 public class ProductoRestController {
 
-    @Autowired
-    private ProductoService productoService;
+    private final ProductoService productoService;
+
+    ProductoRestController(ProductoService productoService) {
+        this.productoService = productoService;
+    }
 
     // Endpoint para obtener todos los productos
     @GetMapping
