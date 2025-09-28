@@ -50,13 +50,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     // Añadimos "html/" al inicio para que redirija a la carpeta correcta.
                     switch (data.rol) {
                         case "Administrador":
-                            window.location.href = "html/Ventana_Admin.html";
+                            window.location.href = "/administrador/";
                             break;
                         case "Vendedor":
-                            window.location.href = "html/ventana_vendedor.html";
+                            window.location.href = "/vendedor/";
                             break;
                         case "Contador":
-                            window.location.href = "html/Ventana_Contador.html";
+                            window.location.href = "/contador/";
                             break;
                         default:
                             alert("Login correcto, pero no hay una vista definida para el rol: " + data.rol);

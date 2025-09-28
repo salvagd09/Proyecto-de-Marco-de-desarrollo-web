@@ -38,120 +38,12 @@
       </header>
 
       <!-- Tu sidebar (SIN JS) -->
-      <aside id="sidebar" class="d-flex flex-column p-3 bg-dark text-white">
-        <div class="d-flex align-items-center justify-content-center">
-          <a
-            href="Ventana_Admin.html"
-            class="d-flex align-items-center text-decoration-none text-white"
-          >
-            <img
-              src="../img/LogoEmpresa.png"
-              alt="Logo EstilosPE"
-              width="50"
-              class="me-2"
-            />
-            <h3 class="m-0">EstilosPE</h3>
-          </a>
-        </div>
-        <hr />
-        <!-- Perfil de usuario -->
-        <div class="text-center mb-0">
-          <img
-            src="../img/usuario.png"
-            alt="Usuario"
-            class="rounded-circle mb-2 usuario"
-          />
-          <h6 class="m-0">Salvador Goicochea</h6>
-          <h6 class="text-secondary">Administrador</h6>
-        </div>
-        <hr />
-        <ul class="nav nav-pills flex-column mb-0">
-          <li>
-            <a href="Ventana_Admin.html" class="nav-link active"
-              ><i class="bi bi-speedometer2 me-2"></i>Panel Principal</a
-            >
-          </li>
-          <li>
-            <a href="compras.html" class="nav-link"
-              ><i class="bi bi-bag-check me-2"></i>Órdenes de Compra</a
-            >
-          </li>
-          <li>
-            <a href="ventas.html" class="nav-link"
-              ><i class="bi bi-cart-check me-2"></i>Ventas</a
-            >
-          </li>
-          <li>
-            <a href="gastos.html" class="nav-link"
-              ><i class="bi bi-cash-coin me-2"></i>Gastos Generales</a
-            >
-          </li>
-          <li>
-            <a href="insumos.html" class="nav-link"
-              ><i class="bi bi-box-seam me-2"></i>Insumos</a
-            >
-          </li>
-          <li>
-            <a href="productos.html" class="nav-link"
-              ><i class="bi bi-tags me-2"></i>Productos</a
-            >
-          </li>
-          <li>
-            <a href="roles.html" class="nav-link"
-              ><i class="bi bi-tags me-2"></i>Roles</a
-            >
-          </li>
-        </ul>
-      </aside>
+      <div th:replace="fragments/Administrador/sidebarAdministrador"></div>
 
       <!-- Columna derecha -->
       <div class="main">
-        <header class="app-header d-flex align-items-center shadow">
-          <!-- Si quieres algo a la izquierda, iría aquí -->
-          <!-- Bloque de acciones al lado derecho -->
-          <div class="header-inner d-flex align-items-center gap-2 ms-auto">
-            <!-- Notificaciones -->
-            <div class="action">
-              <button
-                class="btn-icon"
-                aria-label="Notificaciones"
-                id="Notificaciones"
-              >
-                <i class="bi bi-bell"></i>
-                <span class="badge-dot"></span>
-              </button>
-            </div>
-            <div class="vr mx-auto"></div>
-            <!-- Correo -->
-            <div class="action d-none d-sm-flex">
-              <div class="user-email text-truncate" title="usuario@empresa.com">
-                salvadorG@empresa.com
-              </div>
-            </div>
-
-            <!-- Avatar -->
-            <div class="action">
-              <img
-                src="../img/usuario.png"
-                alt="Usuario"
-                class="rounded-circle usuario"
-              />
-            </div>
-            <div class="vr mx-auto"></div>
-            <!-- Salir -->
-            <div class="action">
-              <form action="../index.html" method="get">
-                <button
-                  type="submit"
-                  class="btn-icon"
-                  aria-label="Cerrar sesión"
-                >
-                  <i class="bi bi-box-arrow-right"></i>
-                </button>
-              </form>
-            </div>
-          </div>
-        </header>
+        <!--Header-->
+      <div th:replace="fragments/header"></div>
 
         <!-- Contenido debajo -->
         <main class="app-content">
@@ -466,5 +358,7 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/auth.js"></script>
+  <script src="../js/logout.js"></script>
   </body>
 </html>

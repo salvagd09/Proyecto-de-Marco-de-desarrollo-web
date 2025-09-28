@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Productos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!--Fuente Google-->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!--Estilo CSS-->
+  <link rel="stylesheet" href="../css/sidebar.css" />
+  <link rel="stylesheet" href="../css/tarjetas.css" />
+  <!-- Iconos de Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="layout">
+    <label for="nav-toggle" class="d-none">Botón</label>
+    <input type="checkbox" id="nav-toggle" class="d-none" />
+    <label for="nav-toggle" id="overlay"></label>
+    <!-- Barra superior en mobile con botón hamburguesa -->
+    <header class="d-md-none position-sticky top-0 z-3 bg-dark text-white">
+      <label for="nav-toggle" class="btn btn-link text-white m-2 p-0">
+        <i class="bi bi-list" style="font-size: 1.75rem"></i>
+      </label>
+    </header>
+
+    <!-- Tu sidebar (SIN JS) -->
+    <div th:replace="fragments/Administrador/sidebarAdministrador"></div>
+
+    <!-- Columna derecha -->
+    <div class="main">
+      <!--Header-->
+      <div th:replace="fragments/header"></div>
+
+      <!-- Contenido debajo -->
+      <main class="app-content">
+        <div class="container-fluid">
+          <!-- Toolbar -->
+          <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+            <h2 class="m-0 flex-grow-1">Productos</h2>
+
+            <div class="input-group" style="max-width: 360px">
+              <span class="input-group-text"><i class="bi bi-search"></i></span>
+              <input type="text" class="form-control" placeholder="Buscar producto, SKU…" />
+            </div>
+
+            <div class="dropdown">
+              <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Filtros
+              </button>
+              <div class="dropdown-menu dropdown-menu-end p-2" style="min-width: 280px">
+                <!-- Filtro de Estado -->
+                <div class="mb-2">
+                  <div class="small text-muted mb-1">Estado</div>
+                  <div class="d-flex gap-2 flex-wrap">
+                    <input type="checkbox" id="activo" class="filter-option" data-filter="estado" value="activo">
+                    <label for="activo" class="btn btn-sm btn-outline-secondary">Activo</label>
+                    <input type="checkbox" id="inactivo" class="filter-option" data-filter="estado" value="inactivo">
+                    <label for="inactivo" class="btn btn-sm btn-outline-secondary">Inactivo</label>
+                  </div>
+                </div>
+
+                <!-- Filtro de Stock -->
+                <div class="mb-2">
+                  <div class="small text-muted mb-1">Stock</div>
+                  <div class="d-flex gap-2 flex-wrap">
+                    <input type="checkbox" id="bajoStock" class="filter-option" data-filter="stock" value="bajo">
+                    <label for="bajoStock" class="btn btn-sm btn-outline-secondary">Bajo (&le; 10)</label>
+                    <input type="checkbox" id="suficienteStock" class="filter-option" data-filter="stock"
+                      value="suficiente">
+                    <label for="suficienteStock" class="btn btn-sm btn-outline-secondary">Suficiente (&gt; 10)</label>
+                  </div>
+                </div>
+
+                <!-- Filtro de Precio -->
+                <div class="mb-2">
+                  <div class="small text-muted mb-1">Precio</div>
+                  <div class="d-flex gap-2 flex-wrap">
+                    <input type="number" id="precioMin" placeholder="Precio Mínimo"
+                      class="form-control form-control-sm">
+                    <input type="number" id="precioMax" placeholder="Precio Máximo"
+                      class="form-control form-control-sm">
+                  </div>
+                </div>
+
+                <!-- Filtro de Categoría -->
+                <div class="mb-2">
+                  <div class="small text-muted mb-1">Categoría</div>
+                  <div class="d-flex gap-2 flex-wrap">
+                    <select id="categoria" class="form-control form-control-sm">
+                      <option value="">Selecciona una categoría</option>
+                      <option value="camisetas">Camisetas</option>
+                      <option value="pantalones">Pantalones</option>
+                      <option value="chaquetas">Chaquetas</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Botón de Aplicar Filtros -->
+                <button type="button" class="btn btn-primary w-100" id="applyFilters">Aplicar</button>
+              </div>
+            </div>
+
+            <!-- Botón "Nuevo producto" -->
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrearProducto">
+              <i class="bi bi-plus-lg me-1"></i> Nuevo producto
+            </button>
+
+            <!-- Botón editar (en cada fila) -->
+            <label for="EditarFila1" class="d-none">Selecciona una opcion</label>
+            <button id="EditarFila1" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+              data-bs-target="#modalEditarProducto" type="button">
+              <i class="bi bi-pencil"></i>
+            </button>
+          </div>
+
+          <!-- KPIs -->
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6 col-lg-3">
+              <div class="kpi kpi-blue">
+                <div class="kpi-icon"><i class="bi bi-box-seam"></i></div>
+                <div class="kpi-body">
+                  <div class="kpi-title">Total Productos</div>
+                  <div class="kpi-value fs-4 fw-semibold" id="totalProductos">3</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+              <div class="kpi kpi-green">
+                <div class="kpi-icon"><i class="bi bi-check-circle"></i></div>
+                <div class="kpi-body">
+                  <div class="kpi-title">Activos</div>
+                  <div class="kpi-value fs-4 fw-semibold" id="productosActivos">1</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+              <div class="kpi kpi-red">
+                <div class="kpi-icon"><i class="bi bi-exclamation-triangle"></i></div>
+                <div class="kpi-body">
+                  <div class="kpi-title">Stock Bajo</div>
+                  <div class="kpi-value text-warning" id="stockBajo">1</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabla -->
+
+          <!-- Mensaje de error (si hay un problema al cargar los productos) -->
+          <div id="productos-error" style="display: none; color: red;"></div>
+
+          <!-- Tabla donde se mostrarán los productos -->
+          <div class="card card-soft overflow-auto">
+            <table class="table align-middle mb-0">
+              <thead class="table-sticky">
+                <tr>
+                  <th style="width: 110px">SKU</th>
+                  <th>Producto</th>
+                  <th style="width: 140px">Categoría</th>
+                  <th style="width: 140px">Talla / Color</th>
+                  <th style="width: 100px" class="text-end">Stock</th>
+                  <th style="width: 120px" class="text-end">Precio</th>
+                  <th style="width: 120px">Estado</th>
+                  <th style="width: 140px">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="productos-body">
+                <!-- Las filas de productos se cargarán aquí dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Footer tabla -->
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-3">
+            <div class="text-muted small">Mostrando 1–10 de 148</div>
+            <nav>
+              <ul class="pagination pagination-sm mb-0">
+                <li class="page-item disabled">
+                  <span class="page-link">Anterior</span>
+                </li>
+                <li class="page-item active">
+                  <span class="page-link">1</span>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#">Siguiente</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Modal Crear producto -->
+        <div class="modal fade" id="modalCrearProducto" tabindex="-1" aria-labelledby="modalCrearProductoLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content card-soft">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalProductoLabel">
+                  Nuevo producto
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="row g-3">
+                    <div class="col-sm-6">
+                      <label class="form-label">SKU</label>
+                      <input id="SkU" type="text" class="form-control" placeholder="PO-001-NEG-M" />
+                    </div>
+                    <div class="col-sm-6">
+                      <label class="form-label">Nombre</label>
+                      <input id="Nombre" type="text" class="form-control" placeholder="Polo Básico" />
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="form-label">Categoría</label>
+                      <select class="form-select" id="Categoria">
+                        <option value="Polos">Polos</option>
+                        <option value="Pantalones">Pantalones</option>
+                        <option value="Casacas">Casacas</option>
+                        <option value="Accesorios">Accesorios</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="form-label">Talla</label>
+                      <select class="form-select" id="Talla">
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option selected value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="form-label">Color</label>
+                      <input id="Color" type="text" class="form-control" placeholder="Negro" />
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="form-label">Precio (S/)</label>
+                      <input id="Precio" type="number" step="0.01" class="form-control" placeholder="39.90" />
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="form-label">Stock</label>
+                      <input id="Stock" type="number" class="form-control" placeholder="0" />
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="form-label">Estado</label>
+                      <select class="form-select" id="Estado">
+                        <option selected value="Estado">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                      </select>
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label">Imagen del producto</label>
+                      <input id="Imagen" type="file" class="form-control" accept="image/*" />
+                      <div class="form-text">Selecciona una imagen.</div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer d-flex justify-content-between">
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+                  Cancelar
+                </button>
+                <button class="btn btn-primary" id="GuardarP" type="button">
+                  Guardar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Editar producto -->
+        <div class="modal fade" id="modalEditarProducto" tabindex="-1" aria-labelledby="modalEditarProductoLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content card-soft">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalProductoLabel">
+                  Editar producto
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="row g-3">
+                    <div class="col-sm-6">
+                      <label class="form-label">SKU</label>
+                      <input id="SKUE" type="text" class="form-control" placeholder="PO-001-NEG-M" />
+                    </div>
+                    <div class="col-sm-6">
+                      <label class="form-label">Nombre</label>
+                      <input id="NombreE" type="text" class="form-control" placeholder="Polo Básico" />
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="form-label">Categoría</label>
+                      <select class="form-select" id="CategoriaE">
+                        <option value="Polos">Polos</option>
+                        <option value="Pantalones">Pantalones</option>
+                        <option value="Casacas">Casacas</option>
+                        <option value="Accesorios">Accesorios</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="form-label">Talla</label>
+                      <select class="form-select" id="TallaE">
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option selected value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="form-label">Color</label>
+                      <input id="ColorE" type="text" class="form-control" placeholder="Negro" />
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="form-label">Precio (S/)</label>
+                      <input id="PrecioE" type="number" step="0.01" class="form-control" placeholder="39.90" />
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="form-label">Stock</label>
+                      <input id="StockE" type="number" class="form-control" placeholder="0" />
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="form-label">Estado</label>
+                      <select class="form-select" id="EstadoE">
+                        <option selected value="Activo">Activo</option>
+                        <option valie="Inactivo">Inactivo</option>
+                      </select>
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label">Imagen del producto</label>
+                      <input id="ImagenE" type="file" class="form-control" accept="image/*" />
+                      <div class="form-text">Selecciona una imagen.</div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer d-flex justify-content-between">
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                  Cancelar
+                </button>
+                <button class="btn btn-primary" id="Guardar">Guardar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal para visualizar el producto -->
+        <div class="modal fade" id="modalVerProducto" tabindex="-1" aria-labelledby="modalVerProductoLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content card-soft">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalVerProductoLabel">
+                  Vista del Producto
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <div class="modal-body text-center">
+                <!-- Aquí va la imagen del producto -->
+                <img id="modalProductoImg" src="" alt="Producto" class="img-fluid rounded" />
+                <p id="modalProductoNombre" class="mt-2 mb-0 text-muted"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/logout.js"></script>
+  <script src="../js/productos.js"></script>
+</body>
+
+</html>

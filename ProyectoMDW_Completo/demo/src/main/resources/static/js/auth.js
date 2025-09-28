@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (!token) {
         alert('Acceso denegado. Por favor, inicie sesión.');
-        window.location.href = '/html/login.html'; // La ruta es correcta
+        window.location.href = '/'; // La ruta es correcta
         return;
     }
 
@@ -95,3 +95,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+//Saludo al usuario
+document.addEventListener("DOMContentLoaded", () => {
+    const userName = sessionStorage.getItem("userName");
+    const welcomeElement = document.getElementById("welcome-user-name");
+    if (userName && welcomeElement) {
+      welcomeElement.textContent = userName;
+    }
+  });

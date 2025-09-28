@@ -1,4 +1,4 @@
-**
+/**
  * gastos.js - Lógica para el Módulo de Gastos Generales
  * Versión 3.0 - Conectado al backend Spring Boot.
  */

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Sesión local eliminada. Redirigiendo a la página de login.');
 
             // Redirige a la página de login principal (index.html en la raíz del static)
-            window.location.href = '../index.html';
+            window.location.href = '/';
         });
     } else {
         console.warn("El botón de logout con id 'logout-button' no fue encontrado en esta página.");

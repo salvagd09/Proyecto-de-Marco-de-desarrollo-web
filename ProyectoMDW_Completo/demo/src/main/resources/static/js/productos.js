@@ -2,6 +2,139 @@
  * productos.js - Lógica para el Módulo de Productos
  * Versión 2.0 - Conectado al backend Spring Boot.
  */
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Cargar los productos cuando el documento esté listo
+    cargarProductos();
+
+    // Cargar las estadísticas cuando el documento esté listo
+    cargarEstadisticas();
+});
+
+async function cargarProductos() {
+    try {
+        const productos = await obtenerProductos(); // Obtener los productos desde la API
+        console.log('Productos cargados:', productos); // Mostrar los productos en la consola
+        mostrarProductos(productos); // Llamar a la función para mostrar los productos en la interfaz (si es necesario)
+    } catch (error) {
+        mostrarError(error.message); // Mostrar error si algo sale mal
+    }
+}
+
+// Función para obtener los productos desde la API
+async function obtenerProductos() {
+    const token = sessionStorage.getItem('jwtToken'); // Obtener el token JWT
+
+    // Hacer la solicitud fetch con el token JWT en los encabezados
+    const response = await fetch('/api/productos', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token ? `Bearer ${token}` : '' // Incluir el token en los encabezados
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error('No se pudieron cargar los productos. Verifique la autenticación.');
+    }
+
+    return await response.json(); // Retornar los productos en formato JSON
+}
+
+// Mostrar los productos en la interfaz (opcional)
+function mostrarProductos(productos) {
+    const tableBody = document.querySelector('#productos-body');
+    tableBody.innerHTML = ''; // Limpiar la tabla antes de añadir los productos
+
+    productos.forEach(producto => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <td>${producto.sku}</td>
+            <td>
+                <div class="d-flex align-items-center gap-2">
+                    <div>
+                        <div class="fw-semibold">${producto.nombreProducto}</div>
+                        <div class="small text-muted">${producto.descripcion}</div>
+                    </div>
+                </div>
+            </td>
+            <td><span class="badge bg-secondary-subtle text-secondary">${producto.categoria.nombreCategoria}</span></td>
+            <td><span class="badge bg-info-subtle text-info">${producto.talla} / ${producto.color}</span></td>
+            <td class="text-end">${producto.stockActual}</td>
+            <td class="text-end">S/ ${producto.precio.toFixed(2)}</td>
+            <td>
+                <span class="badge ${producto.estado === 'Activo' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'}">
+                    <i class="bi bi-check2-circle me-1"></i>${producto.estado}
+                </span>
+            </td>
+            <td class="d-flex gap-2">
+                <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalVerProducto" type="button">
+                    <i class="bi bi-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalEditarProducto" type="button">
+                    <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" type="button">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        `;
+
+        tableBody.appendChild(row); // Añadir la fila a la tabla
+    });
+}
+
+// Mostrar mensajes de error en la interfaz
+function mostrarError(message) {
+    const errorElement = document.getElementById('productos-error');
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+}
+
+
+//Mostrar las estadisticas
+async function cargarEstadisticas() {
+    try {
+        const estadisticas = await obtenerEstadisticas(); // Obtener las estadísticas desde la API
+        console.log('Estadísticas de productos:', estadisticas); // Mostrar las estadísticas en la consola
+        mostrarEstadisticas(estadisticas); // Llamar a la función para mostrar las estadísticas en la interfaz
+    } catch (error) {
+        mostrarError(error.message); // Mostrar error si algo sale mal
+    }
+}
+
+// Función para obtener las estadísticas desde la API
+async function obtenerEstadisticas() {
+    const token = sessionStorage.getItem('jwtToken'); // Obtener el token JWT
+
+    // Hacer la solicitud fetch con el token JWT en los encabezados
+    const response = await fetch('/api/productos/estadisticas', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token ? `Bearer ${token}` : '' // Incluir el token en los encabezados
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error('No se pudieron cargar las estadísticas de productos. Verifique la autenticación.');
+    }
+
+    return await response.json(); // Retornar las estadísticas en formato JSON
+}
+
+// Mostrar las estadísticas en la interfaz
+function mostrarEstadisticas(estadisticas) {
+    // Aquí puedes modificar el contenido de los elementos de los KPIs
+    document.getElementById('totalProductos').textContent = estadisticas.totalProductos;
+    document.getElementById('productosActivos').textContent = estadisticas.productosActivos;
+    document.getElementById('stockBajo').textContent = estadisticas.stockBajo;
+}
+
+//Antiguo javascript
+/*
 document.addEventListener('DOMContentLoaded', () => {
     const tablaBody = document.querySelector('#tablaProductos tbody');
     const modal = new bootstrap.Modal(document.getElementById('productoModal'));
@@ -180,3 +313,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- INICIALIZACIÓN ---
     renderizarTabla();
 });
+*/

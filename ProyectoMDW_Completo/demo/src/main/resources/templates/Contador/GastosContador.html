@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gestión EstilosPE - Gastos (Contador)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Dependencias CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Estilos Propios -->
+    <link rel="stylesheet" href="../css/sidebar.css" />
+  <link rel="stylesheet" href="../css/tarjetas.css" />
+
+  </head>
+
+  <body>
+    <div class="layout d-flex">
+      <!-- Sidebar para Contador -->
+      <div th:replace="fragments/Contador/sidebarContador" class="sidebar"></div>
+  
+      <!-- Contenido Principal -->
+      <div class="main-content flex-grow-1">
+          <!-- Header -->
+          <div th:replace="fragments/header"></div>
+  
+          <main class="app-content p-4">
+              <!-- Alerta de solo lectura (si corresponde) -->
+              <div class="alert alert-info d-flex align-items-center" role="alert">
+                  <i class="bi bi-info-circle-fill me-2"></i>
+                  <div>
+                      Esta es una vista de <strong>solo lectura</strong>. Aquí puedes consultar el historial de gastos.
+                  </div>
+              </div>
+  
+              <!-- Botón para registrar nuevo gasto (ocultado según permisos con auth.js) -->
+              <div class="d-flex mb-3">
+                  <button
+                      type="button"
+                      class="btn btn-primary btn-crear"
+                      id="btnNuevoGasto"
+                      style="display: none"
+                  >
+                      <i class="bi bi-plus-circle me-2"></i>Registrar Nuevo Gasto
+                  </button>
+              </div>
+  
+              <!-- Tarjeta de listado de gastos -->
+              <div class="card shadow-sm">
+                  <div class="card-body">
+                      <h5 class="card-title">Listado de Gastos</h5>
+                      <div class="table-responsive">
+                          <table class="table table-striped table-hover" id="tablaGastos">
+                              <thead>
+                                  <tr>
+                                      <th>ID</th>
+                                      <th>Descripción</th>
+                                      <th>Tipo</th>
+                                      <th>Fecha</th>
+                                      <th>Monto</th>
+                                      <th>Estado</th>
+                                      <!-- Columna de acciones oculta según rol -->
+                                      <th class="col-acciones">Acciones</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <!-- Contenido generado por gastos.js -->
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </main>
+      </div>
+  </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 1. Auth: Valida la sesión y configura la UI (ocultará botones/columnas) -->
+    <script src="../js/auth.js"></script>
+    <!-- 2. Logout: Añade el listener de cierre de sesión -->
+    <script src="../js/logout.js"></script>
+    <!-- 3. Lógica de la página: Carga los datos en la tabla (funciona para todos los roles) -->
+    <script src="../js/gastos.js"></script>
+  </body>
+</html>
