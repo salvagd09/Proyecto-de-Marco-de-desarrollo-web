@@ -4,12 +4,13 @@
  */
 
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Cargar los productos cuando el documento esté listo
     cargarProductos();
 
     // Cargar las estadísticas cuando el documento esté listo
     cargarEstadisticas();
+
 });
 
 async function cargarProductos() {
@@ -132,6 +133,162 @@ function mostrarEstadisticas(estadisticas) {
     document.getElementById('productosActivos').textContent = estadisticas.productosActivos;
     document.getElementById('stockBajo').textContent = estadisticas.stockBajo;
 }
+
+
+
+// Función para guardar el producto
+document.getElementById('btnGuardarProducto').addEventListener('click', async function () {
+    const form = document.getElementById('formCrearProducto');
+
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    const productoData = {
+        sku: document.getElementById('sku').value,
+        nombreProducto: document.getElementById('nombreProducto').value,
+        descripcion: document.getElementById('descripcion').value,
+        stockActual: parseInt(document.getElementById('stockActual').value),
+        precio: parseFloat(document.getElementById('precio').value),
+        talla: document.getElementById('talla').value || null,
+        color: document.getElementById('color').value || null,
+        estado: document.getElementById('estado').value,
+        imagenProducto: document.getElementById('imagenProducto').value || null,
+        categoria: {
+            idCategoria: parseInt(document.getElementById('idCategoria').value)
+        }
+    };
+
+    try {
+        const token = sessionStorage.getItem('jwtToken'); // Obtener el token
+
+        const response = await fetch('/api/productos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token ? `Bearer ${token}` : '' // Añadir el token
+            },
+            body: JSON.stringify(productoData)
+        });
+
+        if (response.ok) {
+            const nuevoProducto = await response.json();
+            alert('Producto creado exitosamente!');
+
+            // Cerrar modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalCrearProducto'));
+            modal.hide();
+
+            // Limpiar formulario
+            form.reset();
+
+            // Recargar la lista de productos (si tienes una función para esto)
+            if (typeof cargarProductos === 'function') {
+                cargarProductos();
+            }
+
+        } else {
+            const error = await response.json();
+            alert('Error al crear producto: ' + error.error);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error de conexión: ' + error.message);
+    }
+});
+
+
+// Función mejorada para cargar categorías CON TOKEN
+async function cargarCategorias() {
+    const select = document.getElementById('idCategoria');
+    const token = sessionStorage.getItem('jwtToken'); // Obtener el token JWT
+
+    try {
+        console.log('🔍 Solicitando categorías...');
+        select.innerHTML = '<option value="">Cargando categorías...</option>';
+
+        const response = await fetch('/api/categorias', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token ? `Bearer ${token}` : '' // Incluir el token
+            }
+        });
+
+        if (response.ok) {
+            const categorias = await response.json();
+            console.log('✅ Categorías recibidas:', categorias);
+
+            if (categorias.length > 0) {
+                select.innerHTML = '<option value="">Seleccionar categoría</option>';
+
+                categorias.forEach(categoria => {
+                    const option = document.createElement('option');
+                    option.value = categoria.idCategoria;
+                    option.textContent = categoria.nombreCategoria;
+                    select.appendChild(option);
+                });
+
+                console.log(`✅ ${categorias.length} categorías cargadas`);
+            } else {
+                select.innerHTML = '<option value="">No hay categorías disponibles</option>';
+                console.warn('⚠️ No hay categorías disponibles');
+            }
+        } else if (response.status === 401) {
+            throw new Error('No autorizado. Por favor, inicie sesión nuevamente.');
+        } else {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+    } catch (error) {
+        console.error('❌ Error cargando categorías:', error);
+        select.innerHTML = `
+            <option value="">Error cargando categorías</option>
+            <option value="1">Polos</option>
+            <option value="2">Pantalones</option>
+            <option value="3">Casacas</option>
+            <option value="4">Accesorios</option>
+        `;
+
+        // Mostrar error si es de autenticación
+        if (error.message.includes('No autorizado')) {
+            alert('Sesión expirada. Por favor, inicie sesión nuevamente.');
+            window.location.href = '/login.html'; // Redirigir al login
+        }
+    }
+}
+
+
+// Cargar categorías cuando se abre el modal (código existente)
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('modalCrearProducto');
+
+    if (modal) {
+        modal.addEventListener('show.bs.modal', function () {
+            console.log('🎯 Modal abierto - cargando categorías...');
+            cargarCategorias();
+        });
+    }
+
+    const btnNuevoProducto = document.querySelector('[data-bs-target="#modalCrearProducto"]');
+    if (btnNuevoProducto) {
+        btnNuevoProducto.addEventListener('click', function () {
+            console.log('🖱️ Click en Nuevo Producto - precargando categorías...');
+            setTimeout(() => cargarCategorias(), 100);
+        });
+    }
+});
+// En tu formulario, usa un SKU diferente
+function generarSKUUnico() {
+    const random = Math.floor(Math.random() * 10000);
+    return `SKU-${Date.now().toString().slice(-6)}-${random}`;
+}
+
+// Al abrir el modal, genera SKU automáticamente
+document.getElementById('modalCrearProducto').addEventListener('show.bs.modal', function() {
+    document.getElementById('sku').value = generarSKUUnico();
+    cargarCategorias();
+});
 
 //Antiguo javascript
 /*
