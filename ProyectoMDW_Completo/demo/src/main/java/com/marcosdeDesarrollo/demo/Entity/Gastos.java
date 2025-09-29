@@ -1,4 +1,4 @@
-/* 
+
 package com.marcosdeDesarrollo.demo.Entity;
 
 import jakarta.persistence.*;
@@ -10,48 +10,60 @@ import java.util.Date;
 public class Gastos {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id_gasto")
-    private int id_gasto;
+    private Integer id_gasto;
     @ManyToOne
     @JoinColumn(name="id_usuario",nullable=false)
-    private int id_usuario;
+    private Usuario id_usuario;
     @ManyToOne
-    @JoinColumn(name="id_gasto",nullable=false)
-    private int id_tipo;
+    @JoinColumn(name="id_tipo",nullable=false)
+    private Tipos_Gasto tipo;
     private String descripcion;
     @Column(name="fecha",nullable=false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_creacion", nullable = false, updatable = false, insertable = false,
+            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date fechaCreacion;
     @Column(name="monto",nullable=false)
     private double monto;
     @Enumerated(EnumType.STRING)
-    private estado estado;
-    private enum estado{
-        Pendiente,Pagado,Cancelado
-    }
+    private Estado2 estado;
 
     public int getId_gasto() {
         return id_gasto;
+    }
+
+    public void setId_gasto(Integer id_gasto) {
+        this.id_gasto = id_gasto;
+    }
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
     public void setId_gasto(int id_gasto) {
         this.id_gasto = id_gasto;
     }
 
-    public int getId_usuario() {
+    public Usuario getId_usuario() {
         return id_usuario;
     }
 
-    public void setId_usuario(int id_usuario) {
+    public void setId_usuario(Usuario id_usuario) {
         this.id_usuario = id_usuario;
     }
 
-    public int getId_tipo() {
-        return id_tipo;
+        public Tipos_Gasto getId_tipo() {
+        return tipo;
     }
 
-    public void setId_tipo(int id_tipo) {
-        this.id_tipo = id_tipo;
+    public void setId_tipo(Tipos_Gasto tipo) {
+        this.tipo = tipo;
     }
 
     public String getDescripcion() {
@@ -78,13 +90,12 @@ public class Gastos {
         this.monto = monto;
     }
 
-    public estado getEstado() {
+    public Estado2 getEstado() {
         return estado;
     }
 
-    public void setEstado(estado estado) {
+    public void setEstado(Estado2 estado) {
         this.estado = estado;
     }
 }
     
-*/

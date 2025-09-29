@@ -1,4 +1,4 @@
-/* 
+
 package com.marcosdeDesarrollo.demo.Entity;
 
 import jakarta.persistence.*;
@@ -95,4 +95,3 @@ public class Venta {
 
 }
 
-//     */

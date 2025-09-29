@@ -22,7 +22,8 @@ public class Usuario {
     @JoinColumn(name = "id_rol")
     private Rol rol;
 
-
+    public Usuario(Integer idUsuario) {
+    }
     public Integer getId() {
         return id;
     }

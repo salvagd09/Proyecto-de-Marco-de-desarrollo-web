@@ -1,4 +1,4 @@
-/* 
+
 package com.marcosdeDesarrollo.demo.Entity;
 
 import jakarta.persistence.*;
@@ -13,10 +13,10 @@ public class Ordenes_Compra {
     private Integer id_orden;
     @ManyToOne
     @JoinColumn(name="id_usuario",nullable=false)
-    private Integer id_usuario;
+    private Usuario id_usuario;
     @ManyToOne
     @JoinColumn(name="id_proveedor",nullable=false)
-    private Integer id_proveedor;
+    private Proveedores id_proveedor;
     @Enumerated(EnumType.STRING)
     private estado estado_Compra;
     @Value("${total:0}")
@@ -30,16 +30,16 @@ public class Ordenes_Compra {
     public void setId_orden(Integer id_orden) {
         this.id_orden = id_orden;
     }
-    public Integer getId_usuario() {
+    public Usuario getId_usuario() {
         return id_usuario;
     }
-    public void setId_usuario(Integer id_usuario) {
+    public void setId_usuario(Usuario id_usuario) {
         this.id_usuario = id_usuario;
     }
-    public Integer getId_proveedor() {
+    public Proveedores getId_proveedor() {
         return id_proveedor;
     }
-    public void setId_proveedor(Integer id_proveedor) {
+    public void setId_proveedor(Proveedores id_proveedor) {
         this.id_proveedor = id_proveedor;
     }
     public estado getEstado_Compra() {
@@ -55,4 +55,3 @@ public class Ordenes_Compra {
         this.total = total;
     }
 }
-*/

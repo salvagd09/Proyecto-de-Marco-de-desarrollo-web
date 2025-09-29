@@ -1,4 +1,4 @@
-/* 
+
 package com.marcosdeDesarrollo.demo.Entity;
 
 import jakarta.persistence.*;
@@ -14,7 +14,6 @@ public class DetalleVenta {
     @JoinColumn(name = "id_venta", nullable = false)
     private Venta venta;
 
-    @Column(name = "id_producto")
     private Integer idProducto;
 
     private Integer cantidad;
@@ -42,5 +41,3 @@ public class DetalleVenta {
     }
     
 }
-
-//     */
