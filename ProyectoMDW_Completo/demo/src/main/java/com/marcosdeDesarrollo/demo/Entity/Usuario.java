@@ -21,7 +21,8 @@ public class Usuario {
     @ManyToOne
     @JoinColumn(name = "id_rol")
     private Rol rol;
-
+    public Usuario() {
+    }
     public Usuario(Integer idUsuario) {
     }
     public Integer getId() {
