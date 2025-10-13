@@ -1,0 +1,39 @@
+<header class="app-header d-flex align-items-center shadow" id="main-header">
+    <!-- Si quieres algo a la izquierda, iría aquí -->
+    
+    <!-- Bloque de acciones al lado derecho -->
+    <div class="header-inner d-flex align-items-center gap-2 ms-auto" id="header-actions">
+        <!-- Notificaciones -->
+        <div class="action" id="notification-container">
+            <button class="btn-icon" id="notification-button" aria-label="Notificaciones">
+                <i class="bi bi-bell" id="notification-icon"></i>
+                <span class="badge-dot" id="notification-badge"></span>
+            </button>
+        </div>
+        
+        <div class="vr mx-auto" id="separator-1"></div>
+        
+        <!-- Correo -->
+        <div class="action d-none d-sm-flex" id="email-container">
+            <div class="user-email text-truncate" id="user-email" title="usuario@empresa.com">
+                salvadorG@empresa.com
+            </div>
+        </div>
+
+        <!-- Avatar -->
+        <div class="action" id="avatar-container">
+            <img src="../img/usuario.png" alt="Usuario" class="rounded-circle usuario" id="user-avatar" />
+        </div>
+        
+        <div class="vr mx-auto" id="separator-2"></div>
+        
+        <!-- Salir -->
+        <div class="action" id="logout-container">
+            <form action="../index.html" method="get" id="logout-form">
+                <button type="submit" class="btn-icon" id="logout-button" aria-label="Cerrar sesión">
+                    <i class="bi bi-box-arrow-right" id="logout-icon"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</header>

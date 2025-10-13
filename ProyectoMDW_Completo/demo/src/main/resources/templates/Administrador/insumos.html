@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insumos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!--Fuente Google-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!--Estilo CSS-->
+    <link rel="stylesheet" href="../css/tarjetas.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
+    <!-- Iconos de Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="layout">
+      <label for="nav-toggle" class="d-none">Botón</label>
+      <input type="checkbox" id="nav-toggle" class="d-none" />
+      <label for="nav-toggle" id="overlay"></label>
+      <!-- Barra superior en mobile con botón hamburguesa -->
+      <header class="d-md-none position-sticky top-0 z-3 bg-dark text-white">
+        <label for="nav-toggle" class="btn btn-link text-white m-2 p-0">
+          <i class="bi bi-list" style="font-size: 1.75rem"></i>
+        </label>
+      </header>
+
+      <!-- Tu sidebar (SIN JS) -->
+      <div th:replace="fragments/Administrador/sidebarAdministrador"></div>
+
+      <!-- Columna derecha -->
+      <div class="main">
+        <!--Header-->
+      <div th:replace="fragments/header"></div>
+
+        <!-- Contenido debajo -->
+        <main class="app-content">
+          <div class="container-fluid">
+            <!-- Toolbar -->
+            <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+              <h2 class="m-0 flex-grow-1">Insumos</h2>
+
+              <div class="input-group" style="max-width: 320px">
+                <span class="input-group-text"
+                  ><i class="bi bi-search"></i
+                ></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Buscar insumo…"
+                />
+              </div>
+
+              <div class="dropdown">
+                <button
+                  class="btn btn-outline-secondary dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  type="button"
+                >
+                  Filtros
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <h6 class="dropdown-header">Stock</h6>
+                  </li>
+                  <li><a class="dropdown-item" href="#">Bajo (&lt;= 20)</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Suficiente (&gt; 20)</a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <div class="mb-1">
+                      <div class="small text-muted mb-1 text-center">
+                        Tipo de tela
+                      </div>
+                      <label for="OpcionesQ" class="d-none"
+                        >Selecciona una opcion</label
+                      >
+                      <select id="OpcionesQ" class="form-select form-select-sm">
+                        <option value="Todas">Todas</option>
+                        <option value="Fibras Quimicas">Fibras químicas</option>
+                        <option value="Fibras Naturales">
+                          Fibras natruales
+                        </option>
+                      </select>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Botón NUEVO -->
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#modalInsumoCrear"
+              >
+                <i class="bi bi-plus-lg me-1"></i> Nuevo insumo
+              </button>
+            </div>
+
+            <!-- KPI mini -->
+            <div class="row g-3 mb-3">
+              <div class="col-sm-6 col-lg-3">
+                <div class="kpi kpi-green">
+                  <div class="kpi-icon"><i class="bi bi-box-seam"></i></div>
+                  <div class="kpi-body">
+                    <div class="kpi-title">Total insumos</div>
+                    <div class="kpi-value fs-4 fw-semibold">2</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-3">
+                <div class="kpi kpi-red">
+                  <div class="kpi-icon"><i class="bi bi-box-seam"></i></div>
+                  <div class="kpi-body">
+                    <div class="kpi-title">Stock Bajo</div>
+                    <div class="kpi-value fs-4 fw-semibold text-warning">1</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabla -->
+            <div class="card card-soft overflow-auto">
+              <table class="table align-middle mb-0">
+                <thead class="table-sticky">
+                  <tr>
+                    <th style="width: 70px">ID</th>
+                    <th>Insumo</th>
+                    <th style="width: 140px">Categoría</th>
+                    <th style="width: 140px">Stock</th>
+                    <th style="width: 130px">Estado</th>
+                    <th style="width: 140px">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>001</td>
+                    <td>Tela de algodón</td>
+                    <td>
+                      <span class="badge bg-secondary-subtle text-secondary"
+                        >Textil</span
+                      >
+                    </td>
+                    <td>200</td>
+                    <td>
+                      <span class="badge bg-success-subtle text-success"
+                        ><i class="bi bi-check2-circle me-1"></i>OK</span
+                      >
+                    </td>
+                    <td class="d-flex gap-2">
+                      <!-- Botón EDITAR (en cada fila) -->
+                      <label for="EditarFilaT" class="d-none"
+                        >Selecciona una opcion</label
+                      >
+                      <button
+                        id="EditarFilaT"
+                        class="btn btn-sm btn-outline-secondary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalInsumoEditar"
+                      >
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <label for="EliminarFilaT" class="d-none"
+                        >Selecciona una opcion</label
+                      >
+                      <button
+                        id="EliminarFilaT"
+                        class="btn btn-sm btn-outline-danger"
+                        type="button"
+                      >
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Footer tabla -->
+            <div
+              class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-3"
+            >
+              <div class="text-muted small">Mostrando 1–10 de 2</div>
+              <nav>
+                <ul class="pagination pagination-sm mb-0">
+                  <li class="page-item disabled">
+                    <span class="page-link">Anterior</span>
+                  </li>
+                  <li class="page-item active">
+                    <span class="page-link">1</span>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">Siguiente</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <!-- Modal Crear -->
+          <!-- Modal Crear -->
+          <div
+            class="modal fade"
+            id="modalInsumoCrear"
+            tabindex="-1"
+            aria-labelledby="modalInsumoCrearLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content card-soft">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalInsumoCrearLabel">
+                    Nuevo insumo
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Cerrar"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="row g-3">
+                      <div class="col-12">
+                        <label class="form-label">Nombre</label>
+                        <input
+                          type="text"
+                          id="NombreM"
+                          class="form-control"
+                          placeholder="Ej. Tela denim 10oz"
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Categoría</label>
+                        <select class="form-select" id="CatM">
+                          <option value="Textil">Textil</option>
+                          <option value="Accesorio">Accesorio</option>
+                          <option value="Otros">Otros</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Stock</label>
+                        <input
+                          id="StockM"
+                          type="number"
+                          class="form-control"
+                          placeholder="0"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                  <button
+                    class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                  <button class="btn btn-primary" id="GuardarM" type="button">
+                    Guardar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal Editar -->
+          <!-- Modal Editar -->
+          <div
+            class="modal fade"
+            id="modalInsumoEditar"
+            tabindex="-1"
+            aria-labelledby="modalInsumoEditarLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content card-soft">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalInsumoEditarLabel">
+                    Editar insumo
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Cerrar"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="row g-3">
+                      <div class="col-12">
+                        <label class="form-label">Nombre</label>
+                        <input
+                          id="NombreME"
+                          type="text"
+                          class="form-control"
+                          placeholder="Ej. Tela denim 10oz"
+                          value="Tela de algodón"
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Categoría</label>
+                        <select class="form-select" id="CategoriaME">
+                          <option selected value="Textil">Textil</option>
+                          <option value="Accesorio">Accesorio</option>
+                          <option value="Otros">Otros</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Stock</label>
+                        <input
+                          id="StockME"
+                          type="number"
+                          class="form-control"
+                          placeholder="0"
+                          value="200"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                  <button
+                    class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                  <button class="btn btn-primary" id="GuardarME">
+                    Guardar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/auth.js"></script>
+  <script src="../js/logout.js"></script>
+  </body>
+</html>

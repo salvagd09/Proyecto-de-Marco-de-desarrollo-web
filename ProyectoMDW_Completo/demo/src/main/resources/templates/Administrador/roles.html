@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestión EstilosPE - Roles</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/tarjetas.css" />
+  <link rel="stylesheet" href="../css/sidebar.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="layout">
+    <label for="nav-toggle" class="d-none">Selecciona una opcion</label>
+    <input type="checkbox" id="nav-toggle" class="d-none" />
+    <label for="nav-toggle" id="overlay"></label>
+    <header class="d-md-none position-sticky top-0 z-3 bg-dark text-white">
+      <label for="nav-toggle" class="btn btn-link text-white m-2 p-0">
+        <i class="bi bi-list" style="font-size: 1.75rem"></i>
+      </label>
+    </header>
+
+    <!--SIDEBAR-->
+    <div th:replace="fragments/Administrador/sidebarAdministrador"></div>
+    <!--CONTENIDO PRINCIPAL-->
+    <div class="main">
+      <!--Header-->
+      <div th:replace="fragments/header"></div>
+
+      <main class="app-content">
+        <div id="page-content-wrapper" class="p-4 flex-grow-1">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <h1 class="h2 mb-1">Roles</h1>
+              <p class="text-secondary mb-0">Administra los perfiles y sus permisos.</p>
+            </div>
+            <button type="button" class="btn btn-primary" id="btnAgregarRol" data-bs-toggle="modal"
+              data-bs-target="#rolModal">
+              <i class="bi bi-plus-circle me-2"></i>Nuevo rol
+            </button>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6 col-lg-3">
+              <div class="kpi kpi-blue">
+                <div class="kpi-icon"><i class="bi bi-people"></i></div>
+                <div class="kpi-body">
+                  <div class="kpi-title">Total roles</div>
+                  <div class="kpi-value fs-4 fw-semibold" id="kpiTotalRoles">0</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+              <div class="kpi kpi-green">
+                <div class="kpi-icon"><i class="bi bi-person-check"></i></div>
+                <div class="kpi-body">
+                  <div class="kpi-title">Usuarios activos</div>
+                  <div class="kpi-value fs-4 fw-semibold" id="kpiUsuariosActivos">0</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+              <div class="kpi kpi-gray">
+                <div class="kpi-icon"><i class="bi bi-person-dash"></i></div>
+                <div class="kpi-body">
+                  <div class="kpi-title">Usuarios inactivos</div>
+                  <div class="kpi-value fs-4 fw-semibold" id="kpiUsuariosInactivos">0</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+              <div class="kpi kpi-amber">
+                <div class="kpi-icon"><i class="bi bi-shield-lock"></i></div>
+                <div class="kpi-body">
+                  <div class="kpi-title">Permisos únicos</div>
+                  <div class="kpi-value fs-4 fw-semibold" id="kpiPermisosUnicos">0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-start mb-3">
+            <ul class="nav nav-pills" id="rolesTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" type="button" data-rol-tab="all" role="tab">Todos</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" type="button" data-rol-tab="administrador" role="tab">Administradores</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" type="button" data-rol-tab="vendedor" role="tab">Vendedores</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" type="button" data-rol-tab="contador" role="tab">Contadores</button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card shadow-sm">
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-striped table-hover mb-0" id="tablaRoles">
+                  <thead>
+                    <tr>
+                      <th scope="col">Rol</th>
+                      <th scope="col">Descripción</th>
+                      <th scope="col" class="text-center">Usuarios asignados</th>
+                      <th scope="col" class="col-usuarios">Usuarios</th>
+                      <th scope="col">Creado</th>
+                      <th scope="col">Actualizado</th>
+                      <th scope="col">Actualizado por</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mt-3" id="rolesPaginacion">
+            <span class="text-secondary small" id="infoRegistros">Sin registros</span>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal fade" id="rolModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Agregar Nuevo Rol</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formRol">
+            <input type="hidden" id="rolId" />
+            <div class="mb-3">
+              <label for="nombreRol" class="form-label">Nombre del Rol</label>
+              <select class="form-select" id="nombreRol" required>
+                <option value="" disabled selected>Selecciona un rol</option>
+                <option value="ADMINISTRADOR">Administrador</option>
+                <option value="VENDEDOR">Vendedor</option>
+                <option value="CONTADOR">Contador</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="descripcionRol" class="form-label">Descripción</label>
+              <textarea class="form-control" id="descripcionRol" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Permisos</label>
+              <div class="row row-cols-2 g-2" id="permisosChecklist"></div>
+            </div>
+            <button type="submit" class="btn btn-success" id="GuardarRol">
+              Guardar
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/roles.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/logout.js"></script>
+</body>
+
+</html>

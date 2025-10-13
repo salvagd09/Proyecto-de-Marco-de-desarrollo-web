@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión EstilosPE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--Fuente Google-->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!--Estilo CSS-->
+    <link rel="stylesheet" href="../css/tarjetas.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <!-- Iconos de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="layout">
+        <!-- Sidebar a la izquierda -->
+        <!-- Toggle (solo mobile) -->
+        <label for="nav-toggle" class="d-none">Selecciona el toggle</label>
+        <input type="checkbox" id="nav-toggle" class="d-none">
+        <label for="nav-toggle" id="overlay"></label>
+        <!-- Barra superior en mobile con botón hamburguesa -->
+        <header class="d-md-none position-sticky top-0 z-3 bg-dark text-white">
+            <label for="nav-toggle" class="btn btn-link text-white m-2 p-0">
+                <i class="bi bi-list" style="font-size: 1.75rem;"></i>
+            </label>
+        </header>
+
+        <!-- Tu sidebar (SIN JS) -->
+        <div th:replace="fragments/Administrador/sidebarAdministrador"></div>
+
+        <!-- Columna derecha -->
+        <div class="main">
+            <!--Header-->
+            <div th:replace="fragments/header"></div>
+
+            <!-- Contenido debajo -->
+            <main class="app-content">
+                <div id="page-content-wrapper" class="p-4 flex-grow-1">
+                    <h1 class="mb-4">Módulo de Órdenes de Compra</h1>
+                    <div class="d-flex gap-2 mb-3">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#ordenModal" id="btnNuevaOrden">
+                            <i class="bi bi-plus-circle me-2"></i>Registrar Nueva Compra
+                        </button>
+                    </div>
+
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Listado de Órdenes</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover" id="tablaCompras">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 5%;">ID</th>
+                                            <th scope="col" style="width: 35%;">Proveedor</th>
+                                            <th scope="col" style="width: 15%;">Fecha</th>
+                                            <th scope="col" style="width: 15%;">Total</th>
+                                            <th scope="col" style="width: 15%;">Estado</th>
+                                            <th scope="col" style="width: 15%;">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="modal fade" id="ordenModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Registrar/Actualizar Orden de Compra</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formOrdenCompra">
+                            <input type="hidden" id="ordenId">
+                            <div class="mb-3">
+                                <label for="proveedor" class="form-label">Proveedor</label>
+                                <input type="text" class="form-control" id="proveedor" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fecha" class="form-label">Fecha</label>
+                                <input type="date" class="form-control" id="fecha" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="total" class="form-label">Monto Total</label>
+                                <input type="number" class="form-control" id="total" step="0.01" min="0" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="estado" class="form-label">Estado</label>
+                                <select class="form-select" id="estado" required>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="Completada">Completada</option>
+                                    <option value="Cancelada">Cancelada</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success">Guardar Orden</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </main>
+    </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/compras.js"></script>
+    <script src="../js/auth.js"></script>
+  <script src="../js/logout.js"></script>
+</body>
+
+</html>

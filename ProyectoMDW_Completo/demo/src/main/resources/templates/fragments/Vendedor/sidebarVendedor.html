@@ -1,0 +1,30 @@
+<aside id="sidebar" class="d-flex flex-column p-3 bg-dark text-white">
+    <div class="d-flex align-items-center justify-content-center mb-3">
+        <a href="/vendedor/" class="d-flex align-items-center text-decoration-none text-white">
+            <img src="../img/LogoEmpresa.png" alt="Logo EstilosPE" width="50" class="me-2">
+            <h3 class="m-0">EstilosPE</h3>
+        </a>
+    </div>
+    <hr />
+    <div class="text-center mb-3">
+        <img src="../img/usuario.png" alt="Usuario" class="rounded-circle mb-2 usuario">
+        <h6 id="user-name" class="m-0 fw-bold">Cargando...</h6>
+        <small id="user-role" class="text-secondary"></small>
+    </div>
+    <hr />
+    <ul class="nav nav-pills flex-column flex-grow-1">
+        <li class="nav-item">
+            <a href="/vendedor/" class="nav-link"><i class="bi bi-speedometer2 me-2"></i>Panel Principal</a>
+        </li>
+        <li class="nav-item">
+            <a href="/vendedor/ventas" class="nav-link"><i class="bi bi-cart-check me-2"></i>Ventas</a>
+        </li>
+        <li class="nav-item">
+            <a href="/vendedor/insumos" class="nav-link"><i class="bi bi-box-seam me-2"></i>Insumos</a>
+        </li>
+        <li class="nav-item">
+            <a href="/vendedor/productos" class="nav-link"><i class="bi bi-tags me-2"></i>Productos</a>
+        </li>
+    </ul>
+</aside>
+<script th:src="@{/js/sidebar-active.js}"></script>

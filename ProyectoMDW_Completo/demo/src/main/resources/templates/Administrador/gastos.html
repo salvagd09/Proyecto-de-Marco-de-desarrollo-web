@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión EstilosPE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--Fuente Google-->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!--Estilo CSS-->
+    <link rel="stylesheet" href="../css/tarjetas.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <!-- Iconos de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="layout">
+        <!-- Sidebar a la izquierda -->
+        <!-- Toggle (solo mobile) -->
+        <label for="nav-toggle" class="d-none">Selecciona una opcion</label>
+        <input type="checkbox" id="nav-toggle" class="d-none">
+        <label for="nav-toggle" id="overlay"></label>
+        <!-- Barra superior en mobile con botón hamburguesa -->
+        <header class="d-md-none position-sticky top-0 z-3 bg-dark text-white">
+            <label for="nav-toggle" class="btn btn-link text-white m-2 p-0">
+                <i class="bi bi-list" style="font-size: 1.75rem;"></i>
+            </label>
+        </header>
+
+        <!-- Tu sidebar (SIN JS) -->
+        <div th:replace="fragments/Administrador/sidebarAdministrador"></div>
+
+        <!-- Columna derecha -->
+        <div class="main">
+            <!--Header-->
+            <div th:replace="fragments/header"></div>
+
+            <!-- Contenido debajo -->
+            <main class="app-content">
+                <div id="page-content-wrapper" class="p-4 flex-grow-1">
+                    <h1 class="mb-4">Módulo de Gastos Generales</h1>
+                    <p>Aquí puedes registrar y dar seguimiento a los gastos de la tienda.</p>
+
+                    <div class="d-flex gap-2 mb-3">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#gastoModal" id="btnNuevoGasto">
+                            <i class="bi bi-plus-circle me-2"></i>Registrar Nuevo Gasto
+                        </button>
+                    </div>
+
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Listado de Gastos</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover" id="tablaGastos">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 5%;">ID</th>
+                                            <th scope="col" style="width: 30%;">Descripción</th>
+                                            <th scope="col" style="width: 15%;">Tipo</th>
+                                            <th scope="col" style="width: 15%;">Fecha</th>
+                                            <th scope="col" style="width: 15%;">Monto</th>
+                                            <th scope="col" style="width: 20%;">Estado</th>
+                                            <th scope="col" style="width: 10%;">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="modal fade" id="gastoModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Registrar Nuevo Gasto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formGasto">
+                            <input type="hidden" id="gastoId">
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">Descripción</label>
+                                <input type="text" class="form-control" id="descripcion" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="tipo" class="form-label">Tipo de Gasto</label>
+                                <select class="form-select" id="tipo" required>
+                                    <option value="Alquiler">Alquiler</option>
+                                    <option value="Electricidad">Electricidad</option>
+                                    <option value="Agua">Agua</option>
+                                    <option value="Sueldos">Sueldos</option>
+                                    <option value="Servicios">Servicios</option>
+                                    <option value="Otros">Otros</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fecha" class="form-label">Fecha</label>
+                                <input type="date" class="form-control" id="fecha" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="monto" class="form-label">Monto</label>
+                                <input type="number" class="form-control" id="monto" step="0.01" min="0" required>
+                            </div>
+                            <button type="submit" class="btn btn-success" id="GuardarG">Guardar Gasto</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </main>
+    </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/gastos.js"></script>
+    <script src="../js/auth.js"></script>
+  <script src="../js/logout.js"></script>
+</body>
+
+</html>

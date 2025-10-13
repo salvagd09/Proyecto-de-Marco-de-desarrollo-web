@@ -1,0 +1,89 @@
+/* Cápsulas KPI */
+.kpi {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #3a3f46, #2d3138);
+  border-radius: 999px;
+  padding: 14px 18px;
+  border: 1px solid var(--sidebar-border);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.06);
+  color: var(--sidebar-text);
+}
+.kpi-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 1.2rem;
+}
+.kpi-title {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+.kpi-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Variantes de color (degradadas) */
+.kpi-blue {
+  background: linear-gradient(135deg, #1ea0ff, #1666ff 60%, #0b3db9);
+}
+.kpi-red {
+  background: linear-gradient(135deg, #ff6b6b, #ff3b3b 60%, #c21a1a);
+}
+.kpi-violet {
+  background: linear-gradient(135deg, #8b7bff, #6a5cff 60%, #3a36b6);
+}
+.kpi-green {
+  background: linear-gradient(135deg, #36d27f, #19b86d 60%, #0e7f48);
+}
+.kpi-gray {
+  background: linear-gradient(135deg, #868991, #6b6e76 60%, #4a4c52);
+  color: var(--sidebar-text);
+}
+.kpi-amber {
+  background: linear-gradient(135deg, #ffc261, #ffab2e 60%, #c8780f);
+  color: #2b2b2b;
+}
+.kpi-navy {
+  background: linear-gradient(135deg, #4977d8, #224e9a 60%, #0c2e5b);
+}
+
+/* Tarjeta suave (tema oscuro) */
+
+/* Encabezado de tabla sticky */
+.table-sticky th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Ajuste de badges sutiles con tema oscuro */
+.badge.bg-success-subtle,
+.badge.bg-warning-subtle,
+.badge.bg-info-subtle,
+.badge.bg-secondary-subtle {
+  border: 1px solid var(--sidebar-border);
+}
+
+/* Opcional: sombra del header para separar del contenido */
+.app-header.shadow-lg {
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* Logo Usuario*/
+.usuario {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* Asegura que los canvas llenen el alto del contenedor */
+.app-content canvas { width:100% !important; height:100% !important; }
