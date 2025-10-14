@@ -4,7 +4,7 @@ import com.marcosdeDesarrollo.Ropa.Persistencia.Entity.Estado;
 import java.math.BigDecimal;
 
 public class ProductoRequestDto {
-    private Long idProducto;
+    private Integer idProducto;
     private String sku;
     private String nombreProducto;
     private String descripcion;
@@ -16,11 +16,11 @@ public class ProductoRequestDto {
     private String imagenProducto;
     private Long categoriaId;
 
-    public Long getIdProducto() {
+    public Integer getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(Long idProducto) {
+    public void setIdProducto(Integer idProducto) {
         this.idProducto = idProducto;
     }
 

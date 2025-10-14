@@ -4,16 +4,16 @@ import com.marcosdeDesarrollo.Ropa.Persistencia.Entity.Estado;
 import java.time.LocalDateTime;
 
 public class CategoriaDto {
-    private Long idCategoria;
+    private Integer idCategoria;
     private String nombreCategoria;
     private String descripcion;
     private Estado estado;
     private LocalDateTime fechaCreacion;
 
-    public Long getIdCategoria() {
+    public Integer getIdCategoria() {
         return idCategoria;
     }
-    public void setIdCategoria(Long idCategoria) {
+    public void setIdCategoria(Integer idCategoria) {
         this.idCategoria = idCategoria;
     }
 

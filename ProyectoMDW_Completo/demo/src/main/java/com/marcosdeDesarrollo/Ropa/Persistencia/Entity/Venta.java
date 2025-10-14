@@ -1,5 +1,4 @@
-/* 
-package com.marcosdeDesarrollo.demo.Entity;
+package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 
 import jakarta.persistence.*;
 import java.util.Date;
@@ -12,10 +11,10 @@ public class Venta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idVenta;
 
-    @Column(name = "id_usuario")
+    @Column(name = "id_usuario",insertable=false,updatable=false)
     private Integer idUsuario;
 
-    @Column(name = "id_cliente")
+    @Column(name = "id_cliente",insertable = false,updatable = false)
     private Integer idCliente;
 
     @Temporal(TemporalType.DATE)
@@ -32,8 +31,20 @@ public class Venta {
 
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleVenta> detalles;
-
+    @ManyToOne
+    @JoinColumn(name="id_cliente")
+    private Clientes cliente;
     // Getters y setters
+    @ManyToOne
+    @JoinColumn(name="id_usuario")
+    private Usuario usuario;
+    public Clientes getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Clientes cliente) {
+        this.cliente = cliente;
+    }
 
     public enum EstadoVenta {
         Pendiente, Pagada, Cancelada
@@ -43,7 +54,7 @@ public class Venta {
         Efectivo, Tarjeta, Transferencia
     }
 
-    // Getters y setters 
+    // Getters y setters
     public Integer getIdVenta() {
         return idVenta;
     }
@@ -94,5 +105,3 @@ public class Venta {
     }
 
 }
-
-//     */

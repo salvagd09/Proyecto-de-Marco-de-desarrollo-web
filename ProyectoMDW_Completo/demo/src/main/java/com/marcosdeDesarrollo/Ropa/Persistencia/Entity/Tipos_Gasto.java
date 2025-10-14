@@ -1,10 +1,12 @@
-/* 
-package com.marcosdeDesarrollo.demo.Entity;
+
+package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "tipo_gasto")
+@Table(name = "tipos_gasto")
 public class Tipos_Gasto {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -12,7 +14,8 @@ public class Tipos_Gasto {
     private Integer id_tipo;
     @Column(name="nombre_tipo",nullable=false)
     private String nombre_tipo;
-
+    @OneToMany(mappedBy="gasto")
+    private List<Gastos> gastos;
     public Integer getId_tipo() {
         return id_tipo;
     }
@@ -28,5 +31,10 @@ public class Tipos_Gasto {
     public void setNombre_tipo(String nombre_tipo) {
         this.nombre_tipo = nombre_tipo;
     }
+    public List<Gastos> getGastos() {
+        return gastos;
+    }
+    public void setGastos(List<Gastos> gastos) {
+        this.gastos = gastos;
+    }
 }
-    */

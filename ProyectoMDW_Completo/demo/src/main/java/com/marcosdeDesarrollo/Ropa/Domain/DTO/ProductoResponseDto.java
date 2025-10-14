@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class ProductoResponseDto {
-    private Long idProducto;
+    private Integer idProducto;
     private String sku;
     private String nombreProducto;
     private String descripcion;
@@ -19,11 +19,11 @@ public class ProductoResponseDto {
     private LocalDateTime fechaActualizacion;
     private CategoriaDto categoria;
 
-    public Long getIdProducto() {
+    public Integer getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(Long idProducto) {
+    public void setIdProducto(Integer idProducto) {
         this.idProducto = idProducto;
     }
 

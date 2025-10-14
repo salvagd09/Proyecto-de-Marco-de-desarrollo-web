@@ -1,5 +1,5 @@
-/* 
-package com.marcosdeDesarrollo.demo.Entity;
+
+package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 
 import jakarta.persistence.*;
 @Entity
@@ -7,16 +7,16 @@ import jakarta.persistence.*;
 public class Producto_Insumos {
     @EmbeddedId
     private Producto_InsumosId id;
-    @Column(name="categoria_requerida",nullable=false)
-    private int categoria_requerida;
-    @MapsId("id_producto")
+    @MapsId("idProducto")
     @ManyToOne
     @JoinColumn(name="id_producto",nullable=false)
     private Producto producto;
-    @MapsId("id_insumo")
+    @MapsId("idInsumo")
     @ManyToOne
     @JoinColumn(name="id_insumo",nullable=false)
     private Insumos insumos;
+    @Column(name="categoria_requerida",nullable=false)
+    private int categoria_requerida;
     public Producto_InsumosId getId() {
         return id;
     }
@@ -49,4 +49,3 @@ public class Producto_Insumos {
         this.insumos = insumos;
     }
 }
-     */

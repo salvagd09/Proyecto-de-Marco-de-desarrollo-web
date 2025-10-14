@@ -1,5 +1,5 @@
-/* ==
-package com.marcosdeDesarrollo.demo.Entity;
+
+package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 
 import jakarta.persistence.*;
 
@@ -10,14 +10,14 @@ import java.util.Date;
 public class Gastos {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id_gasto")
-    private int id_gasto;
+    @Column(name="id_gasto",insertable=false,updatable=false)
+    private Integer idGasto;
     @ManyToOne
     @JoinColumn(name="id_usuario",nullable=false)
-    private int id_usuario;
+    private Usuario usuarioGasto;
     @ManyToOne
     @JoinColumn(name="id_gasto",nullable=false)
-    private int id_tipo;
+    private Tipos_Gasto gasto;
     private String descripcion;
     @Column(name="fecha",nullable=false)
     @Temporal(TemporalType.DATE)
@@ -30,28 +30,28 @@ public class Gastos {
         Pendiente,Pagado,Cancelado
     }
 
-    public int getId_gasto() {
-        return id_gasto;
+    public Integer getIdGasto() {
+        return idGasto;
     }
 
-    public void setId_gasto(int id_gasto) {
-        this.id_gasto = id_gasto;
+    public void setIdGasto(Integer idGasto) {
+        this.idGasto = idGasto;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
+    public Usuario getUsuario() {
+        return usuarioGasto;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setUsuario(Usuario usuarioGasto) {
+        this.usuarioGasto = usuarioGasto;
     }
 
-    public int getId_tipo() {
-        return id_tipo;
+    public Tipos_Gasto getGasto() {
+        return gasto;
     }
 
-    public void setId_tipo(int id_tipo) {
-        this.id_tipo = id_tipo;
+    public void setGasto(Tipos_Gasto gasto) {
+        this.gasto = gasto;
     }
 
     public String getDescripcion() {
@@ -86,5 +86,3 @@ public class Gastos {
         this.estado = estado;
     }
 }
-    
-*/

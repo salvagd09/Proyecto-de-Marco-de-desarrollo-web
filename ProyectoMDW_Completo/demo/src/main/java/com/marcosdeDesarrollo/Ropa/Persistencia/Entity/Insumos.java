@@ -1,7 +1,9 @@
-/* 
-package com.marcosdeDesarrollo.demo.Entity;
+
+package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Value;
+
+import java.util.List;
 
 @Entity
 @Table(name="insumos")
@@ -9,7 +11,7 @@ public class Insumos {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id_insumo")
-    private Integer id_insumo;
+    private Integer idInsumo;
     @Column(name="nombre",nullable=false)
     private String nombre;
     private String Descripcion;
@@ -21,13 +23,14 @@ public class Insumos {
     private enum estado{
         Activo,Desactivo
     }
-
-    public Integer getId_insumo() {
-        return id_insumo;
+    @OneToMany(mappedBy="insumos")
+    private List<Producto_Insumos> insumosP;
+    public Integer getIdInsumo() {
+        return idInsumo;
     }
 
-    public void setId_insumo(Integer id_insumo) {
-        this.id_insumo = id_insumo;
+    public void IdInsumo(Integer idInsumo) {
+        this.idInsumo = idInsumo;
     }
 
     public String getNombre() {
@@ -70,4 +73,3 @@ public class Insumos {
         this.estado = estado;
     }
 }
-// */

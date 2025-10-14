@@ -2,13 +2,15 @@ package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
+    @Column(name = "id_usuario",updatable = false,insertable = false)
     private Integer id;
 
     @Column(name = "email", unique = true)
@@ -26,8 +28,14 @@ public class Usuario {
     @ManyToOne
     @JoinColumn(name = "id_rol")
     private Rol rol;
-
-
+    @OneToMany(mappedBy = "usuario")
+    private List<Venta> ventas;
+    @OneToMany(mappedBy="usuarioGasto")
+    private List<Gastos> gastos;
+    @OneToMany(mappedBy="usuarioMI")
+    private List<Movimientos_inventario> movimientosInventarios;
+    @OneToMany(mappedBy="ordenUsuario")
+    private List<Ordenes_Compra> ordenesCompras;
     public Integer getId() {
         return id;
     }

@@ -1,5 +1,4 @@
-/* 
-package com.marcosdeDesarrollo.demo.Entity;
+package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 
 import jakarta.persistence.*;
 
@@ -9,33 +8,35 @@ public class DetalleOrden {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id_detalle")
-    private Integer id_detalle;
+    private Integer idDetalle;
     @ManyToOne
     @JoinColumn(name="id_orden",nullable=false)
-    private Integer id_orden;
+    private Ordenes_Compra idOrden;
     @ManyToOne
     @JoinColumn(name="id_producto",nullable=false)
-    private Integer id_producto;
-    @Column(name="cantidad",nullable=false)
+    private Producto idProducto;
+    @Column(nullable=false)
     private double cantidad;
-    private double precio_unitario;
-    public Integer getId_detalle() {
-        return id_detalle;
+    @Column(name="precio_unitario")
+    private double precioUnitario;
+    private double subtotal;
+    public Integer getIdDetalle() {
+        return idDetalle;
     }
-    public void setId_detalle(Integer id_detalle) {
-        this.id_detalle = id_detalle;
+    public void setIdDetalle(Integer idDetalle) {
+        this.idDetalle = idDetalle;
     }
-    public Integer getId_orden() {
-        return id_orden;
+    public Ordenes_Compra getIdOrden() {
+        return idOrden;
     }
-    public void setId_orden(Integer id_orden) {
-        this.id_orden = id_orden;
+    public void setIdOrden(Ordenes_Compra idOrden) {
+        this.idOrden = idOrden;
     }
-    public Integer getId_producto() {
-        return id_producto;
+    public Producto getIdProducto() {
+        return idProducto;
     }
-    public void setId_producto(Integer id_producto) {
-        this.id_producto = id_producto;
+    public void setIdProducto(Producto idProducto) {
+        this.idProducto = idProducto;
     }
     public double getCantidad() {
         return cantidad;
@@ -43,11 +44,16 @@ public class DetalleOrden {
     public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
-    public double getPrecio_unitario() {
-        return precio_unitario;
+    public double getPrecioUnitario() {
+        return precioUnitario;
     }
-    public void setPrecio_unitario(double precio_unitario) {
-        this.precio_unitario = precio_unitario;
+    public void setPrecioUnitario(double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+    public double getSubtotal() {
+        return subtotal;
+    }
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
     }
 }
-        */

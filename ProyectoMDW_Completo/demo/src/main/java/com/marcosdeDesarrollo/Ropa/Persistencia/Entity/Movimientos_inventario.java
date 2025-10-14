@@ -1,5 +1,5 @@
-/* s 
-package com.marcosdeDesarrollo.demo.Entity;
+
+package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,10 +15,10 @@ public class Movimientos_inventario {
     private Integer id_movimiento;
     @ManyToOne
     @JoinColumn(name="id_producto",nullable=false)
-    private Integer id_producto;
+    private Producto ProductoMI;
     @ManyToOne
     @JoinColumn(name="id_usuario",nullable=false)
-    private Integer id_usuario;
+    private Usuario usuarioMI;
     @Temporal(TemporalType.DATE)
     @Value("{fecha:current_timestamp}")
     private Date fecha;
@@ -34,4 +34,3 @@ public class Movimientos_inventario {
     private int stock_nuevo;
 
 }
-    */
