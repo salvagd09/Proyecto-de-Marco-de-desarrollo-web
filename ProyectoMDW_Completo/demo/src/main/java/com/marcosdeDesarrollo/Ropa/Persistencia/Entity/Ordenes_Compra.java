@@ -1,9 +1,8 @@
-package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
+/* 
+package com.marcosdeDesarrollo.demo.Entity;
 
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Value;
-
-import java.util.List;
 
 @Entity
 @Table(name="ordenes_compra")
@@ -14,12 +13,10 @@ public class Ordenes_Compra {
     private Integer id_orden;
     @ManyToOne
     @JoinColumn(name="id_usuario",nullable=false)
-    private Usuario ordenUsuario;
+    private Integer id_usuario;
     @ManyToOne
     @JoinColumn(name="id_proveedor",nullable=false)
-    private Proveedores proveedor;
-    @OneToMany(mappedBy="idOrden")
-    private List<DetalleOrden> DetalleOrden;
+    private Integer id_proveedor;
     @Enumerated(EnumType.STRING)
     private estado estado_Compra;
     @Value("${total:0}")
@@ -33,25 +30,18 @@ public class Ordenes_Compra {
     public void setId_orden(Integer id_orden) {
         this.id_orden = id_orden;
     }
-    public Usuario getIdUsuario() {
-        return ordenUsuario;
+    public Integer getId_usuario() {
+        return id_usuario;
     }
-    public void setIdUsuario(Usuario ordenUsuario) {
-        this.ordenUsuario = ordenUsuario;
+    public void setId_usuario(Integer id_usuario) {
+        this.id_usuario = id_usuario;
     }
-    public Proveedores getProveedor() {
-        return proveedor;
+    public Integer getId_proveedor() {
+        return id_proveedor;
     }
-    public void setProveedor(Proveedores proveedor) {
-        this.proveedor = proveedor;
+    public void setId_proveedor(Integer id_proveedor) {
+        this.id_proveedor = id_proveedor;
     }
-    public List<DetalleOrden> getDetalleOrden() {
-        return DetalleOrden;
-    }
-    public void setDetalleOrden(List<DetalleOrden> detalleOrden) {
-        DetalleOrden = detalleOrden;
-    }
-
     public estado getEstado_Compra() {
         return estado_Compra;
     }
@@ -65,3 +55,4 @@ public class Ordenes_Compra {
         this.total = total;
     }
 }
+*/

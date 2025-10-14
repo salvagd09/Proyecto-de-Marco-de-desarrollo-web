@@ -1,31 +1,29 @@
-
-package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
+/* 
+package com.marcosdeDesarrollo.demo.Entity;
 
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 @Table(name="clientes")
 public class Clientes {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id_cliente",insertable=false,updatable=false)
-    private int idCliente;
-    @Column(nullable=false)
+    @Column(name="id_cliente")
+    private int id_cliente;
+    @Column(name="nombre",nullable=false)
     private String nombre;
     private String apellido;
-    @Column(unique=true)
-    private String dniRuc;
+    @Column(name="dni_ruc",unique=true)
+    private String dni_ruc;
     private String telefono;
     private String email;
-    @OneToMany(mappedBy="cliente")
-    private List<Venta> ventas;
-    public int getIdCliente() {
-        return idCliente;
+
+    public int getId_cliente() {
+        return id_cliente;
     }
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
     }
 
     public String getNombre() {
@@ -44,11 +42,12 @@ public class Clientes {
         this.apellido = apellido;
     }
 
-    public String getDniRuc() {
-        return dniRuc;
+    public String getDni_ruc() {
+        return dni_ruc;
     }
-    public void setDniRuc(String dniRuc) {
-        this.dniRuc = dniRuc;
+
+    public void setDni_ruc(String dni_ruc) {
+        this.dni_ruc = dni_ruc;
     }
 
     public String getTelefono() {
@@ -66,10 +65,5 @@ public class Clientes {
     public void setEmail(String email) {
         this.email = email;
     }
-    public List<Venta> getVentas() {
-        return ventas;
-    }
-    public void setVentas(List<Venta> ventas) {
-        this.ventas = ventas;
-    }
 }
+*/

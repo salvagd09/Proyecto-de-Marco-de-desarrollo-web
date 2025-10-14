@@ -1,4 +1,5 @@
-package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
+/* 
+package com.marcosdeDesarrollo.demo.Entity;
 
 import jakarta.persistence.*;
 
@@ -13,9 +14,8 @@ public class DetalleVenta {
     @JoinColumn(name = "id_venta", nullable = false)
     private Venta venta;
 
-    @ManyToOne
-    @JoinColumn(name="id_producto")
-    private Producto productoVendido;
+    @Column(name = "id_producto")
+    private Integer idProducto;
 
     private Integer cantidad;
     private Double precioUnitario;
@@ -34,11 +34,13 @@ public class DetalleVenta {
     public void setVenta(Venta venta) {
         this.venta = venta;
     }
-    public Producto getProducto() {
-        return productoVendido;
+    public Integer getIdProducto() {
+        return idProducto;
     }
-    public void setProducto(Producto productoVendido) {
-        this.productoVendido = productoVendido;
+    public void setIdProducto(Integer idProducto) {
+        this.idProducto = idProducto;
     }
-
+    
 }
+
+//     */

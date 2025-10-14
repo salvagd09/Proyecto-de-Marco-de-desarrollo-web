@@ -16,7 +16,7 @@ public class Proveedores {
     private String telefono;
     private String email;
     @OneToMany(mappedBy="proveedor")
-    private List<Ordenes_Compra> ordenesCompras;
+    private List<Proveedores> proveedores;
     public Integer getID_Proveedor() {
         return IDProveedor;
     }
@@ -55,21 +55,5 @@ public class Proveedores {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Integer getIDProveedor() {
-        return IDProveedor;
-    }
-
-    public void setIDProveedor(Integer IDProveedor) {
-        this.IDProveedor = IDProveedor;
-    }
-
-    public List<Ordenes_Compra> getOrdenesCompras() {
-        return ordenesCompras;
-    }
-
-    public void setOrdenesCompras(List<Ordenes_Compra> ordenesCompras) {
-        this.ordenesCompras = ordenesCompras;
     }
 }
