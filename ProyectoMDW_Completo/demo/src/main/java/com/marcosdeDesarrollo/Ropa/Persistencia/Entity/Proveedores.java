@@ -15,8 +15,8 @@ public class Proveedores {
     private String contacto;
     private String telefono;
     private String email;
-    @OneToMany(mappedBy="proveedor")
-    private List<Proveedores> proveedores;
+    @OneToMany(mappedBy="ordenP")
+    private List<Ordenes_Compra> ordenesCompras;
     public Integer getID_Proveedor() {
         return IDProveedor;
     }

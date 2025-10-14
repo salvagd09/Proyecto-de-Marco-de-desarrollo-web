@@ -1,7 +1,9 @@
-/* 
-package com.marcosdeDesarrollo.demo.Entity;
+
+package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "detalle_orden")
@@ -11,11 +13,12 @@ public class DetalleOrden {
     @Column(name="id_detalle")
     private Integer id_detalle;
     @ManyToOne
-    @JoinColumn(name="id_orden",nullable=false)
-    private Integer id_orden;
+    @JoinColumn(name="id_orden")
+    private Ordenes_Compra ordenesCompras;
     @ManyToOne
-    @JoinColumn(name="id_producto",nullable=false)
-    private Integer id_producto;
+    @JoinColumn(name="id_producto")
+    private Producto productos;
+
     @Column(name="cantidad",nullable=false)
     private double cantidad;
     private double precio_unitario;
@@ -25,18 +28,23 @@ public class DetalleOrden {
     public void setId_detalle(Integer id_detalle) {
         this.id_detalle = id_detalle;
     }
-    public Integer getId_orden() {
-        return id_orden;
+
+    public Ordenes_Compra getOrdenesCompras() {
+        return ordenesCompras;
     }
-    public void setId_orden(Integer id_orden) {
-        this.id_orden = id_orden;
+
+    public void setOrdenesCompras(Ordenes_Compra ordenesCompras) {
+        this.ordenesCompras = ordenesCompras;
     }
-    public Integer getId_producto() {
-        return id_producto;
+
+    public Producto getProductos() {
+        return productos;
     }
-    public void setId_producto(Integer id_producto) {
-        this.id_producto = id_producto;
+
+    public void setProductos(Producto productos) {
+        this.productos = productos;
     }
+
     public double getCantidad() {
         return cantidad;
     }
@@ -50,4 +58,3 @@ public class DetalleOrden {
         this.precio_unitario = precio_unitario;
     }
 }
-        */

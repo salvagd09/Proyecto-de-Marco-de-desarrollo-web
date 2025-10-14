@@ -1,8 +1,10 @@
-/* 
-package com.marcosdeDesarrollo.demo.Entity;
+
+package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Value;
+
+import java.util.List;
 
 @Entity
 @Table(name="ordenes_compra")
@@ -11,12 +13,18 @@ public class Ordenes_Compra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_orden")
     private Integer id_orden;
+    @Column(name="id_usuario",nullable=false,insertable = false,updatable = false)
+    private Integer idUsuario;
+    @Column(name="id_proveedor",nullable=false,insertable = false,updatable = false)
+    private Integer idProveedor;
+    @ManyToOne
+    @JoinColumn(name="id_proveedor",nullable = false)
+    private Proveedores ordenP;
     @ManyToOne
     @JoinColumn(name="id_usuario",nullable=false)
-    private Integer id_usuario;
-    @ManyToOne
-    @JoinColumn(name="id_proveedor",nullable=false)
-    private Integer id_proveedor;
+    private Usuario usuariosOC;
+    @OneToMany(mappedBy="ordenesCompras")
+    private List<DetalleOrden> ordenesDetalles;
     @Enumerated(EnumType.STRING)
     private estado estado_Compra;
     @Value("${total:0}")
@@ -30,18 +38,47 @@ public class Ordenes_Compra {
     public void setId_orden(Integer id_orden) {
         this.id_orden = id_orden;
     }
-    public Integer getId_usuario() {
-        return id_usuario;
+
+    public Proveedores getOrdenP() {
+        return ordenP;
     }
-    public void setId_usuario(Integer id_usuario) {
-        this.id_usuario = id_usuario;
+
+    public void setOrdenP(Proveedores ordenP) {
+        this.ordenP = ordenP;
     }
-    public Integer getId_proveedor() {
-        return id_proveedor;
+
+    public Usuario getUsuariosOC() {
+        return usuariosOC;
     }
-    public void setId_proveedor(Integer id_proveedor) {
-        this.id_proveedor = id_proveedor;
+
+    public void setUsuariosOC(Usuario usuariosOC) {
+        this.usuariosOC = usuariosOC;
     }
+
+    public List<DetalleOrden> getOrdenesDetalles() {
+        return ordenesDetalles;
+    }
+
+    public void setOrdenesDetalles(List<DetalleOrden> ordenesDetalles) {
+        this.ordenesDetalles = ordenesDetalles;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Integer getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(Integer idProveedor) {
+        this.idProveedor = idProveedor;
+    }
+
     public estado getEstado_Compra() {
         return estado_Compra;
     }
@@ -55,4 +92,3 @@ public class Ordenes_Compra {
         this.total = total;
     }
 }
-*/

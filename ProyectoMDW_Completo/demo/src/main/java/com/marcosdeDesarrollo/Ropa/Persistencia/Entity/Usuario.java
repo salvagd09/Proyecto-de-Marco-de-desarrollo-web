@@ -2,6 +2,8 @@ package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
@@ -26,10 +28,48 @@ public class Usuario {
     @ManyToOne
     @JoinColumn(name = "id_rol")
     private Rol rol;
-
-
+    @OneToMany(mappedBy="usuarioGasto")
+    private List<Gastos> gastos;
+    @OneToMany(mappedBy="usuarios")
+    private List<Venta> ventas;
+    @OneToMany(mappedBy="usuariosOC")
+    private List<Ordenes_Compra> ordenesCompras;
+    @OneToMany(mappedBy="usuarioMI")
+    private List<Movimientos_inventario> movimientosInventarios;
     public Integer getId() {
         return id;
+    }
+
+    public List<Gastos> getGastos() {
+        return gastos;
+    }
+
+    public void setGastos(List<Gastos> gastos) {
+        this.gastos = gastos;
+    }
+
+    public List<Venta> getVentas() {
+        return ventas;
+    }
+
+    public void setVentas(List<Venta> ventas) {
+        this.ventas = ventas;
+    }
+
+    public List<Ordenes_Compra> getOrdenesCompras() {
+        return ordenesCompras;
+    }
+
+    public void setOrdenesCompras(List<Ordenes_Compra> ordenesCompras) {
+        this.ordenesCompras = ordenesCompras;
+    }
+
+    public List<Movimientos_inventario> getMovimientosInventarios() {
+        return movimientosInventarios;
+    }
+
+    public void setMovimientosInventarios(List<Movimientos_inventario> movimientosInventarios) {
+        this.movimientosInventarios = movimientosInventarios;
     }
 
     public void setId(Integer id) {

@@ -10,7 +10,7 @@ public class Producto_Insumos {
     @MapsId("idProducto")
     @ManyToOne
     @JoinColumn(name="id_producto",nullable=false)
-    private Producto producto;
+    private Producto productoI;
     @MapsId("idInsumo")
     @ManyToOne
     @JoinColumn(name="id_insumo",nullable=false)
@@ -34,11 +34,11 @@ public class Producto_Insumos {
     }
 
     public Producto getProducto() {
-        return producto;
+        return productoI;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setProducto(Producto productoI) {
+        this.productoI = productoI;
     }
 
     public Insumos getInsumos() {

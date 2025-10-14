@@ -1,5 +1,5 @@
-/* 
-package com.marcosdeDesarrollo.demo.Entity;
+
+package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 
 import jakarta.persistence.*;
 
@@ -9,13 +9,12 @@ public class DetalleVenta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDetalle;
-
     @ManyToOne
     @JoinColumn(name = "id_venta", nullable = false)
     private Venta venta;
-
-    @Column(name = "id_producto")
-    private Integer idProducto;
+    @ManyToOne
+    @JoinColumn(name="id_producto",nullable=false)
+    private Producto producto;
 
     private Integer cantidad;
     private Double precioUnitario;
@@ -34,13 +33,38 @@ public class DetalleVenta {
     public void setVenta(Venta venta) {
         this.venta = venta;
     }
-    public Integer getIdProducto() {
-        return idProducto;
+
+    public Producto getProducto() {
+        return producto;
     }
-    public void setIdProducto(Integer idProducto) {
-        this.idProducto = idProducto;
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
-    
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Double getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(Double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+
+    public Double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(Double subtotal) {
+        this.subtotal = subtotal;
+    }
 }
 
 //     */
