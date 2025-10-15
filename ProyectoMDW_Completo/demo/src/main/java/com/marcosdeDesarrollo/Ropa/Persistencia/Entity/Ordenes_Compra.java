@@ -12,31 +12,31 @@ public class Ordenes_Compra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_orden")
-    private Integer id_orden;
-    @Column(name="id_usuario",nullable=false,insertable = false,updatable = false)
+    private Integer idOrden;
+    @Column(name="id_usuario")
     private Integer idUsuario;
-    @Column(name="id_proveedor",nullable=false,insertable = false,updatable = false)
+    @Column(name="id_proveedor")
     private Integer idProveedor;
     @ManyToOne
-    @JoinColumn(name="id_proveedor",nullable = false)
+    @JoinColumn(name="id_proveedor",nullable = false,insertable = false,updatable = false)
     private Proveedores ordenP;
     @ManyToOne
-    @JoinColumn(name="id_usuario",nullable=false)
+    @JoinColumn(name="id_usuario",nullable=false,insertable = false,updatable = false)
     private Usuario usuariosOC;
     @OneToMany(mappedBy="ordenesCompras")
     private List<DetalleOrden> ordenesDetalles;
     @Enumerated(EnumType.STRING)
     private estado estado_Compra;
     @Value("${total:0}")
-    private double total;
+    private Double total;
     private enum estado{
         Pendiente,Aprobada,Recibida,Cancelada
     }
     public Integer getId_orden() {
-        return id_orden;
+        return idOrden;
     }
-    public void setId_orden(Integer id_orden) {
-        this.id_orden = id_orden;
+    public void setId_orden(Integer idOrden) {
+        this.idOrden = idOrden;
     }
 
     public Proveedores getOrdenP() {

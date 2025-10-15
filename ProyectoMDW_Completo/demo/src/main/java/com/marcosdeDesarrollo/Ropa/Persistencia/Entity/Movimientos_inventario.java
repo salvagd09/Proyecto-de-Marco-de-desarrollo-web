@@ -12,41 +12,53 @@ public class Movimientos_inventario {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id_movimiento")
-    private Integer id_movimiento;
+    private Integer idMovimiento;
+    @Column(name="id_producto")
+    private Integer idProducto;
+    @Column(name="id_usuario")
+    private Integer idUsuario;
     @ManyToOne
-    @JoinColumn(name="id_producto",nullable=false)
+    @JoinColumn(name="id_producto",nullable=false,insertable=false,updatable = false)
     private Producto ProductoMI;
     @ManyToOne
-    @JoinColumn(name="id_usuario",nullable=false)
+    @JoinColumn(name="id_usuario",nullable=false,insertable=false,updatable=false)
     private Usuario usuarioMI;
     @Temporal(TemporalType.DATE)
     @Value("{fecha:current_timestamp}")
     private Date fecha;
+    private String referencia;
+    @Column(name="cantidad",nullable=false)
+    private Integer cantidad;
+    private Integer stock_anterior;
+    private Integer stock_nuevo;
     @Enumerated(EnumType.STRING)
     private tipo tipo;
     private enum tipo{
         Entrada,Salida
     }
-    private String referencia;
-    @Column(name="cantidad",nullable=false)
-    private int cantidad;
-    private int stock_anterior;
-    private int stock_nuevo;
 
-    public Integer getId_movimiento() {
-        return id_movimiento;
+    public Integer getIdMovimiento() {
+        return idMovimiento;
     }
 
-    public void setId_movimiento(Integer id_movimiento) {
-        this.id_movimiento = id_movimiento;
+    public void setIdMovimiento(Integer idMovimiento) {
+        this.idMovimiento = idMovimiento;
     }
 
-    public Producto getProductoMI() {
-        return ProductoMI;
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setProductoMI(Producto productoMI) {
-        ProductoMI = productoMI;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Integer getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(Integer idProducto) {
+        this.idProducto = idProducto;
     }
 
     public Usuario getUsuarioMI() {
@@ -57,20 +69,20 @@ public class Movimientos_inventario {
         this.usuarioMI = usuarioMI;
     }
 
+    public Producto getProductoMI() {
+        return ProductoMI;
+    }
+
+    public void setProductoMI(Producto productoMI) {
+        ProductoMI = productoMI;
+    }
+
     public Date getFecha() {
         return fecha;
     }
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    public tipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(tipo tipo) {
-        this.tipo = tipo;
     }
 
     public String getReferencia() {
@@ -81,27 +93,35 @@ public class Movimientos_inventario {
         this.referencia = referencia;
     }
 
-    public int getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
-    public int getStock_anterior() {
+    public Integer getStock_anterior() {
         return stock_anterior;
     }
 
-    public void setStock_anterior(int stock_anterior) {
+    public void setStock_anterior(Integer stock_anterior) {
         this.stock_anterior = stock_anterior;
     }
 
-    public int getStock_nuevo() {
+    public Integer getStock_nuevo() {
         return stock_nuevo;
     }
 
-    public void setStock_nuevo(int stock_nuevo) {
+    public void setStock_nuevo(Integer stock_nuevo) {
         this.stock_nuevo = stock_nuevo;
+    }
+
+    public tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(tipo tipo) {
+        this.tipo = tipo;
     }
 }

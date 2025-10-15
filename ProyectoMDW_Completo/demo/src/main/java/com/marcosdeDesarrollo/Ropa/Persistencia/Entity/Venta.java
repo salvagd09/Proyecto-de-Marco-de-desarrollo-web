@@ -11,6 +11,10 @@ public class Venta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idVenta;
+    @Column(name="id_usuario")
+    private Integer idUsuario;
+    @Column(name="id_cliente")
+    private Integer idCliente;
     @Temporal(TemporalType.DATE)
     private Date fecha;
 
@@ -26,12 +30,28 @@ public class Venta {
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleVenta> detalles;
     @ManyToOne
-    @JoinColumn(name="id_cliente")
+    @JoinColumn(name="id_cliente",insertable=false,updatable=false)
     private Clientes clientes;
     @ManyToOne
-    @JoinColumn(name="id_usuario")
+    @JoinColumn(name="id_usuario",insertable=false,updatable=false)
     private Usuario usuarios;
     // Getters y setters
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Integer getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
+    }
 
     public enum EstadoVenta {
         Pendiente, Pagada, Cancelada

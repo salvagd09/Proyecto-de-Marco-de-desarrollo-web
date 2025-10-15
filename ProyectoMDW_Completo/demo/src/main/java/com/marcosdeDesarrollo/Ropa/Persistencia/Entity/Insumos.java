@@ -16,7 +16,7 @@ public class Insumos {
     private String nombre;
     private String Descripcion;
     @Value("{stock_Actual:0}")
-    private double stock_Actual;
+    private Double stock_Actual;
     private String unidad_medida;
     @Enumerated(EnumType.STRING)
     private estado estado;
@@ -49,11 +49,11 @@ public class Insumos {
         Descripcion = descripcion;
     }
 
-    public double getStock_Actual() {
+    public Double getStock_Actual() {
         return stock_Actual;
     }
 
-    public void setStock_Actual(double stock_Actual) {
+    public void setStock_Actual(Double stock_Actual) {
         this.stock_Actual = stock_Actual;
     }
 

@@ -11,8 +11,9 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
-    private Integer id;
-
+    private Integer idUsuario;
+    @Column(name="id_rol")
+    private Integer idRol;
     @Column(name = "email", unique = true)
     private String email;
 
@@ -26,7 +27,7 @@ public class Usuario {
     private String estado;
 
     @ManyToOne
-    @JoinColumn(name = "id_rol")
+    @JoinColumn(name = "id_rol",insertable=false,updatable = false)
     private Rol rol;
     @OneToMany(mappedBy="usuarioGasto")
     private List<Gastos> gastos;
@@ -37,7 +38,14 @@ public class Usuario {
     @OneToMany(mappedBy="usuarioMI")
     private List<Movimientos_inventario> movimientosInventarios;
     public Integer getId() {
-        return id;
+        return idUsuario;
+    }
+
+    public Integer getIdRol() {
+        return idRol;
+    }
+    public void setIdRol(Integer idRol) {
+        this.idRol = idRol;
     }
 
     public List<Gastos> getGastos() {
@@ -72,8 +80,8 @@ public class Usuario {
         this.movimientosInventarios = movimientosInventarios;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getEmail() {

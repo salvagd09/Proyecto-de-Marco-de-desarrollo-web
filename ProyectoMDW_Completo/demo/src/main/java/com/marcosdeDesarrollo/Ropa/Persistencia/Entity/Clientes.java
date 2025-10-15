@@ -10,8 +10,8 @@ import java.util.List;
 public class Clientes {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id_cliente",insertable = false,updatable = false)
-    private int id_cliente;
+    @Column(name="id_cliente")
+    private Integer id_cliente;
     @Column(name="nombre",nullable=false)
     private String nombre;
     private String apellido;

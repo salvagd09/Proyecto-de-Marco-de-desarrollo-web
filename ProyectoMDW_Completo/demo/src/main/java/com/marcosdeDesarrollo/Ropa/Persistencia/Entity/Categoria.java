@@ -12,7 +12,6 @@ public class Categoria {
     @Column(name = "id_categoria")  // Especifica el nombre de la columna
     //Se cambio el tipo de Long a Int
     private Integer idCategoria;
-
     @Column(name = "nombre_categoria", nullable = false, unique = true)
     private String nombreCategoria;
 

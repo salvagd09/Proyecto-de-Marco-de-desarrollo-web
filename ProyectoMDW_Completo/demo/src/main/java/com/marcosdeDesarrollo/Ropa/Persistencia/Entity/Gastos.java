@@ -10,24 +10,58 @@ import java.util.Date;
 public class Gastos {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id_gasto",insertable=false,updatable=false)
+    @Column(name="id_gasto")
     private Integer idGasto;
+    @Column(name="id_usuario")
+    private Integer idUsuario;
+    @Column(name="id_tipo")
+    private Integer idTipo;
     @ManyToOne
-    @JoinColumn(name="id_usuario",nullable=false)
+    @JoinColumn(name="id_usuario",nullable=false,insertable=false,updatable=false)
     private Usuario usuarioGasto;
     @ManyToOne
-    @JoinColumn(name="id_gasto",nullable=false)
+    @JoinColumn(name="id_tipo",nullable=false,insertable=false,updatable=false)
     private Tipos_Gasto gasto;
     private String descripcion;
     @Column(name="fecha",nullable=false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
     @Column(name="monto",nullable=false)
-    private double monto;
+    private Double monto;
     @Enumerated(EnumType.STRING)
     private estado estado;
     private enum estado{
         Pendiente,Pagado,Cancelado
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Integer getIdTipo() {
+        return idTipo;
+    }
+
+    public void setIdTipo(Integer idTipo) {
+        this.idTipo = idTipo;
+    }
+
+    public Usuario getUsuarioGasto() {
+        return usuarioGasto;
+    }
+
+    public void setUsuarioGasto(Usuario usuarioGasto) {
+        this.usuarioGasto = usuarioGasto;
+    }
+    public Double getMonto() {
+        return monto;
+    }
+    public void setMonto(Double monto) {
+        this.monto = monto;
     }
 
     public Integer getIdGasto() {
@@ -36,14 +70,6 @@ public class Gastos {
 
     public void setIdGasto(Integer idGasto) {
         this.idGasto = idGasto;
-    }
-
-    public Usuario getUsuario() {
-        return usuarioGasto;
-    }
-
-    public void setUsuario(Usuario usuarioGasto) {
-        this.usuarioGasto = usuarioGasto;
     }
 
     public Tipos_Gasto getGasto() {
@@ -68,14 +94,6 @@ public class Gastos {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    public double getMonto() {
-        return monto;
-    }
-
-    public void setMonto(double monto) {
-        this.monto = monto;
     }
 
     public estado getEstado() {

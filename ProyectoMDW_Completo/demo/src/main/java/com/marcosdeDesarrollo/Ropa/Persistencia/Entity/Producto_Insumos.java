@@ -9,11 +9,11 @@ public class Producto_Insumos {
     private Producto_InsumosId id;
     @MapsId("idProducto")
     @ManyToOne
-    @JoinColumn(name="id_producto",nullable=false)
+    @JoinColumn(name="id_producto",nullable=false,insertable=false,updatable=false)
     private Producto productoI;
     @MapsId("idInsumo")
     @ManyToOne
-    @JoinColumn(name="id_insumo",nullable=false)
+    @JoinColumn(name="id_insumo",nullable=false,insertable=false,updatable=false)
     private Insumos insumos;
     @Column(name="categoria_requerida",nullable=false)
     private int categoria_requerida;

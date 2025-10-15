@@ -9,11 +9,15 @@ public class DetalleVenta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDetalle;
+    @Column(name="id_venta")
+    private Integer idVenta;
+    @Column(name="id_producto")
+    private Integer idProducto;
     @ManyToOne
-    @JoinColumn(name = "id_venta", nullable = false)
+    @JoinColumn(name = "id_venta",nullable = false,insertable=false,updatable=false)
     private Venta venta;
     @ManyToOne
-    @JoinColumn(name="id_producto",nullable=false)
+    @JoinColumn(name="id_producto",nullable=false,insertable=false,updatable=false)
     private Producto producto;
 
     private Integer cantidad;
@@ -21,6 +25,21 @@ public class DetalleVenta {
     private Double subtotal;
 
     // Getters y setters
+    public Integer getIdVenta() {
+        return idVenta;
+    }
+    public void setIdVenta(Integer idVenta) {
+        this.idVenta = idVenta;
+    }
+
+    public Integer getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(Integer idProducto) {
+        this.idProducto = idProducto;
+    }
+
     public Integer getIdDetalle() {
         return idDetalle;
     }
@@ -66,5 +85,3 @@ public class DetalleVenta {
         this.subtotal = subtotal;
     }
 }
-
-//     */
