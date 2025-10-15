@@ -1,5 +1,5 @@
 
-package com.marcosdeDesarrollo.demo.Entity;
+package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 
 import jakarta.persistence.*;
 
@@ -10,60 +10,74 @@ import java.util.Date;
 public class Gastos {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id_gasto;
+    @Column(name="id_gasto")
+    private Integer idGasto;
+    @Column(name="id_usuario")
+    private Integer idUsuario;
+    @Column(name="id_tipo")
+    private Integer idTipo;
     @ManyToOne
-    @JoinColumn(name="id_usuario",nullable=false)
-    private Usuario id_usuario;
+    @JoinColumn(name="id_usuario",nullable=false,insertable=false,updatable=false)
+    private Usuario usuarioGasto;
     @ManyToOne
-    @JoinColumn(name="id_tipo",nullable=false)
-    private Tipos_Gasto tipo;
+    @JoinColumn(name="id_tipo",nullable=false,insertable=false,updatable=false)
+    private Tipos_Gasto gasto;
     private String descripcion;
     @Column(name="fecha",nullable=false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "fecha_creacion", nullable = false, updatable = false, insertable = false,
-            columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date fechaCreacion;
     @Column(name="monto",nullable=false)
-    private double monto;
+    private Double monto;
     @Enumerated(EnumType.STRING)
-    private Estado2 estado;
-
-    public int getId_gasto() {
-        return id_gasto;
+    private estado estado;
+    private enum estado{
+        Pendiente,Pagado,Cancelado
     }
 
-    public void setId_gasto(Integer id_gasto) {
-        this.id_gasto = id_gasto;
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public Date getFechaCreacion() {
-        return fechaCreacion;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public Integer getIdTipo() {
+        return idTipo;
     }
 
-    public void setId_gasto(int id_gasto) {
-        this.id_gasto = id_gasto;
+    public void setIdTipo(Integer idTipo) {
+        this.idTipo = idTipo;
     }
 
-    public Usuario getId_usuario() {
-        return id_usuario;
+    public Usuario getUsuarioGasto() {
+        return usuarioGasto;
     }
 
-    public void setId_usuario(Usuario id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setUsuarioGasto(Usuario usuarioGasto) {
+        this.usuarioGasto = usuarioGasto;
+    }
+    public Double getMonto() {
+        return monto;
+    }
+    public void setMonto(Double monto) {
+        this.monto = monto;
     }
 
-        public Tipos_Gasto getId_tipo() {
-        return tipo;
+    public Integer getIdGasto() {
+        return idGasto;
     }
 
-    public void setId_tipo(Tipos_Gasto tipo) {
-        this.tipo = tipo;
+    public void setIdGasto(Integer idGasto) {
+        this.idGasto = idGasto;
+    }
+
+    public Tipos_Gasto getGasto() {
+        return gasto;
+    }
+
+    public void setGasto(Tipos_Gasto gasto) {
+        this.gasto = gasto;
     }
 
     public String getDescripcion() {
@@ -82,20 +96,11 @@ public class Gastos {
         this.fecha = fecha;
     }
 
-    public double getMonto() {
-        return monto;
-    }
-
-    public void setMonto(double monto) {
-        this.monto = monto;
-    }
-
-    public Estado2 getEstado() {
+    public estado getEstado() {
         return estado;
     }
 
-    public void setEstado(Estado2 estado) {
+    public void setEstado(estado estado) {
         this.estado = estado;
     }
 }
-    

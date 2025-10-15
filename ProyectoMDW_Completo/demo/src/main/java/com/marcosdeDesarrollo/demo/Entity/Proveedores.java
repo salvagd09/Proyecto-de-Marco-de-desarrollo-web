@@ -1,6 +1,8 @@
- package com.marcosdeDesarrollo.demo.Entity;
+package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name="proveedores")
@@ -8,18 +10,19 @@ public class Proveedores {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_proveedor")
-    private Integer ID_Proveedor;
+    private Integer IDProveedor;
     private String nombre_Proveedor;
     private String contacto;
     private String telefono;
     private String email;
-
+    @OneToMany(mappedBy="ordenP")
+    private List<Ordenes_Compra> ordenesCompras;
     public Integer getID_Proveedor() {
-        return ID_Proveedor;
+        return IDProveedor;
     }
 
-    public void setID_Proveedor(Integer ID_Proveedor) {
-        this.ID_Proveedor = ID_Proveedor;
+    public void setID_Proveedor(Integer IDProveedor) {
+        this.IDProveedor = IDProveedor;
     }
 
     public String getNombre_Proveedor() {

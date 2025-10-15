@@ -1,6 +1,7 @@
-package com.marcosdeDesarrollo.demo.Entity;
+package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "categorias")
@@ -9,8 +10,8 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categoria")  // Especifica el nombre de la columna
-    private Long idCategoria;
-
+    //Se cambio el tipo de Long a Int
+    private Integer idCategoria;
     @Column(name = "nombre_categoria", nullable = false, unique = true)
     private String nombreCategoria;
 
@@ -20,15 +21,16 @@ public class Categoria {
     @Enumerated(EnumType.STRING)
     @Column(name = "estado")
     private Estado estado;
-
+    @OneToMany(mappedBy="categoria")
+    private List<Producto> productos;
     @Column(name = "fecha_creacion", insertable = false, updatable = false)
     private LocalDateTime fechaCreacion;
     // Getters y Setters
-    public Long getIdCategoria() {
+    public Integer getIdCategoria() {
         return idCategoria;
     }
 
-    public void setIdCategoria(Long idCategoria) {
+    public void setIdCategoria(Integer idCategoria) {
         this.idCategoria = idCategoria;
     }
 

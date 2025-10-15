@@ -1,7 +1,9 @@
-/* 
-package com.marcosdeDesarrollo.demo.Entity;
+
+package com.marcosdeDesarrollo.Ropa.Persistencia.Entity;
 
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name="clientes")
@@ -9,7 +11,7 @@ public class Clientes {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id_cliente")
-    private int id_cliente;
+    private Integer id_cliente;
     @Column(name="nombre",nullable=false)
     private String nombre;
     private String apellido;
@@ -17,7 +19,8 @@ public class Clientes {
     private String dni_ruc;
     private String telefono;
     private String email;
-
+    @OneToMany(mappedBy="clientes")
+    private List<Venta> ventasC;
     public int getId_cliente() {
         return id_cliente;
     }
@@ -66,4 +69,3 @@ public class Clientes {
         this.email = email;
     }
 }
-*/
